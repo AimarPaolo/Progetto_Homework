@@ -1,0 +1,145 @@
+<?php
+    /*in questo caso controllo che i valori mandati dal form siano settati, nel caso in cui sono settati controllo 
+    se il nome utente e la password sono corretti e, in caso affermativo, mando la pagina alla home dopo aver settato
+    i cookies e le sessioni necessarie ad accedere*/
+    if(isset($_REQUEST["nick"]) && isset($_REQUEST["password"])){
+        /*pulisco i valori utilizzando la funzione trim() per evitare che l'utente abbia inserito degli spazi ai lati inavvertitamente*/
+        $username = trim($_REQUEST["nick"]);
+        $password_utente = trim($_REQUEST["password"]);
+        /*come prima cosa mi devo prendere l'indirizzo del server che utilizzerò poco dopo per aprire la connessione. Nel caso in cui
+        siano presenti degli errori durante l'apertura è sufficiente segnalarlo utilizzando echo o printf per mostrare all'utente o
+        al programmatore che potrebbe esserci stato un problema.*/
+        //facendo riferimento al pacco di slide 25_phpmyadmin utilizzo la variabile globale per ottenere l'indirizzo di rete (slide 25)
+        $nome_server = $_SERVER["SERVER_ADDR"];
+        $nome_utente = "normale";
+        /*la password viene presa dal file contentente lo script sql per creare il database, 
+        si farà la stessa cosa anche per l'utente privilegiato*/ 
+        $password = "posso_leggere?";
+        $nome_database = "social_network";
+
+        $conn = mysqli_connect($nome_server, $nome_utente, $password, $nome_database); 
+        //controllo che non ci siano errori nella connessione
+        if(mysqli_connect_errno()){
+            echo "<p>Errore connessione al DBMS: ".mysqli_connect_error()."</p>\n";
+            //faccio in modo che stampi solo questo e segnali l'errore, non deve essere stampata la parte relativa alla registrazione
+        }else{
+                /*in questo caso utilizzo le query nella versione prepared statement per evitare possibili sql injections
+                Quindi, anche se non si dovrebbe correre questo rischio in questo caso, è sempre meglio utilizzare i prepared statement per
+                evitare che vengano inseriti valori non voluti (modificando così la funzione della query)*/
+                $query = "SELECT * FROM utenti WHERE username=?";
+                $stmt = mysqli_prepare($conn, $query);
+                mysqli_stmt_bind_param($stmt, "s", $username);
+                if(!mysqli_stmt_execute($stmt)){
+                    echo "<p>Errore query fallita, ricontrollare quale può essere il problema</p>";
+                }
+                //qui associo ad ogni valore una variabile, poi controllo che corrisponda alla password che si vuole
+                mysqli_stmt_bind_result($stmt, $fetched_nome, $fetched_cognome, $fetched_data_nascita, $fetched_indirizzo, $fetched_username, $fetched_password);
+                $_SESSION["errore"] = false;
+                while($row = mysqli_stmt_fetch($stmt)){
+                    //in questo caso non c'è il rischio che venga stampato più volte dato che il risultato sarà al massimo
+                    //una sola riga
+                    //echo $password_utente."<p>bravissimo</p>".$fetched_password; --> usato per controllare se erano uguali in quanto non entrava nell'if
+                    if($password_utente == $fetched_password){
+                        $_SESSION["entrato"] = true;
+                        echo "OKKKK";
+                    }
+                }
+                
+                if(isset($_SESSION["entrato"])==false){
+                    /*creo una variabile globale che è true, per indicare che è presente un errore generico sull'interimento*/
+                    $_SESSION["errore"] = true;
+                }   
+                mysqli_stmt_close($stmt);                    
+                if(!mysqli_close($conn)){
+                            echo "<p>La connessione non si riesce a chiudere, errore.</p>";
+                        } 
+                                    
+        }      
+    }   
+                ?>
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <title>Login</title>
+        <meta name="author" content="Paolo Aimar">
+        <meta name="keywords" lang="it" content="html">
+        <meta name="description" content="pagina di accesso al sito web">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="../javascript/login_utente.js"></script>
+        <link rel="stylesheet" href="../CSS/progetto.css">
+        <!--icona presa dalla seguente -> https://icons8.it/icon/set/net/family-ios-->
+        <link rel="icon" type="image/png" href="../Immagini/logo.png">
+    </head>
+    <body>
+        <nav>
+            <div class="navbar">
+                <a href="home.php">Home</a>
+                <a href="registrazione.php">Registra</a>
+                <a href="scrivi.php">Scrivi</a>
+                <a href="bacheca.php">Bacheca</a>
+                <a href="login.php">Login</a>
+                <a href="scopri.php">Scopri</a>
+            </div>
+        </nav>
+        <main>
+            <div class="content">
+                <!--anche in questo caso, come con la registrazione, utilizzo il metodo POST in quanto ci possono essere dati sensibili che 
+                non dovrebbero essere visibili nell'URL (sempre precisando che questo non rende automaticamente sicuro il metodo Post, ma riesce
+                a risolvere alcune problematiche del get relative alla privacy)-->
+                <h1>Pagina di accesso al sito</h1>
+                <form id="login" action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST" onsubmit="return validateForm('login');">
+                    <div class="campo">
+                        <!--In questo caso ho scelto di utilizzare una segnalazione di errore inserendo il testo dentro dentro ad un output e colorandolo
+                        di rosso per segnalare all'utente che il login non è andato a buon fine in quanto mi sembra migliore alla segnalazione
+                        tramite alert che andrebbe a scomparire una volta premuto il pulsante. Volendo si può fare sfruttando in CSS lo stile
+                        visibility, andando a cambiare il valore. In alternativa si può lasciare il campo output vuoto, inserendo successivamente
+                        dentro al tag il testo che si vuole far comparire-->
+                        <output id="segnalaErrore"><?php
+                    if(isset($_SESSION["errore"])){
+                        if($_SESSION["errore"] == true){
+                            ?>
+                            Errore in fase di Login, controllare che utente e password siano stati inseriti correttamente!
+                            <?php
+                        }
+                    }
+                ?></output>
+                        <label for="nick">Username: </label>
+                        <input type="text" id="nick" name="nick" minlength="4" maxlength="10" placeholder="inserire lo username" required>
+                    </div>
+                    <div class="campo">
+                        <label for="password">Password: </label>
+                        <input type="password" id="password" name="password" minlength="8" maxlength="16" placeholder="inserire la password" required>
+                        <!--in questo caso non inserisco nessuna linea guida sulla password perchè, se l'utente si è già registrato, ci si immagina
+                        che lui sappia già come debba essere il formato della password-->
+                        <p>Non hai ancora un account? <a href="registrazione.php">Registrati</a></p>
+                        <div class="lastBtn">
+                            <input class="bottoni" type="submit" id="accedi" name="accedi" value="Login">
+                            <!--Per creare un pulsante che cancelli i valori del form potevo anche utilizzare un bottone che richiamasse
+                            una funzione javascript per cancellare i valori dentro ai campi del form. Ho preferito utilizzare questo 
+                            input reset in quanto ci viene già fornito direttamente eseguendo le stesse funzioni -->
+                            <input class="bottoni" type="reset" id="cancella" name="cancella" value="Cancella">
+                        </div>   
+                    </div> 
+                </form>
+                <!--per evitare di creare un altro form che abbia come action la pagina scopri, posso utilizzare anche un bottone
+                generico che, una volta che viene premuto, ti rimanda alla pagina SCOPRI per vedere i tweet degli altri utenti
+                Per far questo posso utilizzare una redirection verso quel sito utilizzando javascript-->
+                <button id="continua" class="bottoni" onclick="rimandaAScopri();">Continua senza autenticarti</button>
+            </div>
+        </main>
+        <!--Inserisco all'interno del footer possibili contatti e informazioni utili all'utente, ad esempio l'autore, la sua mail
+        e altre informazioni di questo genere (prendo anche spunto dai primi laboratori)-->
+        <footer>
+                <!--inserisco il simbolo di copyright utilizzando la dicitura &copy; oppure &#169 per evitare succeffici errori di 
+                interpretazione del sito web-->
+                <div>Sito web realizzato da Aimar Paolo. Anno 2024 | Copyright | Tutti i diritti riservati &copy;</div>
+                <div><a href="mailto:s297424@studenti.polito.it">Email: s297424@studenti.polito.it</a></div>
+                <!--Dato che una delle richieste del sito è quello di calcolarsi il più possibile le informazioni autonomamente, 
+                posso calcolare direttamente il nome della pagina sfruttando la variabile globale $_SERVER (il problema è che mi dava
+                tutto il percorso. Cercando su internet ho trovato il comando basename che ti restituisce solamente il valore a noi
+                interessato)-->
+                <div>Pagina Corrente: <?php echo basename($_SERVER['PHP_SELF']);?></div>
+        </footer>
+    </body>
+</html>

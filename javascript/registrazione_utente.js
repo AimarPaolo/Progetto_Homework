@@ -69,9 +69,26 @@ function validateForm(formId){
         window.alert("La password inserita non rispetta le condizioni");
         return false;
     }
-    const data_odierna = Date();
+    const data_odierna = new Date();
     console.log(data_odierna)
-    return false;
+    let anno = data_odierna.getFullYear();
+    /*mi creo un array che prende la stringa e la divide in anno, mese, giorno ---> 0, 1, 2 */
+    let array = data_nascita.split("-")
+    /*mi stampo un attimo il giorno per controllare che effettivamente i valori scelti siano quelli corretti */
+    /*console.log(anno);
+    console.log(giorno); 
+    console.log(array[1]);*/
+    /*Ora controllo che la data selezionata sia quella corretta e non sia già passata */
+    console.log(array[0]);
+    console.log(anno);
+    if(parseInt(array[0]) >= parseInt(anno)-12){
+        /*facendo questo controllo viene anche esclusa la possibilità che l'utente inserisca una data che è futura alla data odierna, non ho
+        ritenuto necessario segnalare e distinguere queste due tipologie di errore, penso che sia sufficiente segnalare l'errore in questo
+        modo*/
+        /*inoltre ho deciso di non distinguere anche i mesi e i giorni, considero solamente l'anno generico*/
+        window.alert("Hai meno di 12 anni, non è possibile iscriversi al sito");
+        return false;
+    }
     /*Se tutti i controlli sono soddisfatti, allora posso convalidare il form e mandare i dati del form senza creare problemi
     (il controllo dovrà poi esser eseguito anche lato server con PHP in quando non si sa mai che pagina possa mandarci i dati)*/
     return true;

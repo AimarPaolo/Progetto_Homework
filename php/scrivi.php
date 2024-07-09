@@ -5,11 +5,11 @@
         <title>Scopri NetConnect</title>
         <meta name="author" content="Paolo Aimar">
         <meta name="keywords" lang="it" content="html">
-        <meta name="description" content="pagina per guardare i tweet che l'utente ha fatto">
+        <meta name="description" content="pagina per scrivere un nuovo tweet">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="CSS/progetto.css">
+        <link rel="stylesheet" href="../CSS/progetto.css">
         <!--icona presa dalla seguente -> https://icons8.it/icon/set/net/family-ios-->
-        <link rel="icon" type="image/png" href="Immagini/logo.png">
+        <link rel="icon" type="image/png" href="../Immagini/logo.png">
     </head>
     <body>
     <nav>
@@ -31,7 +31,7 @@
             posso calcolare direttamente il nome della pagina sfruttando la variabile globale $_SERVER (il problema è che mi dava
             tutto il percorso. Cercando su internet ho trovato il comando basename che ti restituisce solamente il valore a noi
             interessato)-->
-            <div>Pagina: la pagina in cui si trova in questo momento &eacute; <?php echo basename($_SERVER['PHP_SELF']);?></div>
+            <div>Pagina Corrente: <?php echo basename($_SERVER['PHP_SELF']);?></div>
     </footer>
     </body>
 </html>

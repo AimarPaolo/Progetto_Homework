@@ -16,10 +16,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!--utilizzo il comando script per richiamare la pagina contente le funzioni utili per il corretto sviluppo della pagina
         es. validazione del form-->
-        <script src="javascript/registrazione_utente.js"></script>
+        <script src="../javascript/registrazione_utente.js"></script>
         <!--per inserire un'icona (logo) del sito web utilizzo il tag link-->
-        <link rel="stylesheet" href="CSS/progetto.css">
-        <link rel="icon" type="image/png" href="Immagini/logo.png">
+        <link rel="stylesheet" href="../CSS/progetto.css">
+        <link rel="icon" type="image/png" href="../Immagini/logo.png">
     </head>
     <body>
         <nav>
@@ -103,7 +103,7 @@
             posso calcolare direttamente il nome della pagina sfruttando la variabile globale $_SERVER (il problema è che mi dava
             tutto il percorso. Cercando su internet ho trovato il comando basename che ti restituisce solamente il valore a noi
             interessato)-->
-            <div>Pagina: la pagina in cui si trova in questo momento &eacute; <?php echo basename($_SERVER['PHP_SELF']);?></div>
+            <div>Pagina Corrente: <?php echo basename($_SERVER['PHP_SELF']);?></div>
         </footer>
     </body>
 </html>
