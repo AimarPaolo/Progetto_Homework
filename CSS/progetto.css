@@ -1,0 +1,158 @@
+.navbar {
+    overflow: hidden;
+    /*utilizzo colori che possono essere in palette con la montagna, ad esempio verde, marrone e verde pino */
+    background-color: #2a5e92;
+    font-family: Arial, sans-serif;
+    /*faccio in modo che il navbar occupi tutta la riga, per evitare che si sovrapponga con altri contenuti*/
+    width: 100%;
+    margin-bottom: 3rem;
+}
+  
+.navbar a {
+    float: left;
+    font-size: 1rem;
+    color: white;
+    text-align: center;
+    padding: 1rem 1rem;
+    text-decoration: none;
+}
+.navbar a:hover{
+    background-color: rgb(25, 53, 80);
+    /*aggiungo anche in questo caso border color in modo da far colorare anche il bordo quando viene selezionato*/
+    border-color:  rgb(25, 53, 80);
+}
+
+body{
+    /*imposto subito il font come sans-serif per non affaticare la vista all'utente, nel caso di stampa dovrò poi cambiare il 
+    font inserendo invece il serif*/
+    font-family: "Helvetica Neue", Verdana, sans-serif;
+    /*utilizzo questi comandi per centrare il contenuto del body prima orizzontalmente e poi verticalmente */
+    justify-content: center; 
+    align-items: center; 
+    
+}
+
+/*utilizzando input type=text o date posso cambiare tutti i bottoni e i cambi che hanno quel determinato type*/
+input[type=text], input[type=password], input[type=date] {
+    width: 100%;
+    padding: 0.7rem 1.25rem;
+    /*inserisco poco margine bottom in modo che la linea guida per l'inserimento dell'input non si stacchi di molto*/
+    margin: 1rem 1rem 0rem;
+    display: inline;
+    /*utilizzo la forma compatta per dichiarare il bordo degli input. [spessore, stile e colore]*/
+    border: 0.0625rem solid #ccc;
+    border-radius: 0.25rem;
+    box-sizing: border-box;
+}
+
+.campo{
+    margin-bottom: 1rem;
+}
+
+.guida{
+    /*in questo caso mi creo dei piccoli avvisi che aiutano l'utente ad inserire correttamente il campo, li rendo opachi perchè
+    non voglio dargli troppa importanza, devono essere solo delle linee guida*/
+    color:grey;
+    opacity: 0.7;
+    font-size: 0.5rem;
+    /*non voglio staccarli troppo dal campo di input per far capire che sono effettivamente riferiti a quello*/
+    margin-top: 0.5rem;
+    font-weight: bold;
+    text-align: left;
+}
+
+h1{
+    color: rgb(6, 19, 94);
+    font-size: medium;
+}
+
+/*faccio cambiare il colore anche del bordo quando passo sopra ad un determinato campo*/
+input[type=text]:hover, input[type=password]:hover, input[type=date]:hover {
+    border-color:rgb(13, 29, 58);
+    /*ho provato a far cambiare anche lo spessore però non rimane un buon risultato, in quando i bordi, giustamente, occupano una 
+    parte della pagina e spostano i campi creando un effetto non piacevole e poco controllato*/
+}
+
+.bottoni{
+    justify-content: left;
+    align-items: center;
+    padding: 0.625rem 1.25rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 0.3125rem;
+    /*utilizzando il pointer rendo l'utente consapevole di essere sopra un qualcosa che è possibile selezionare*/
+    cursor: pointer;
+    background-color: #122644; 
+    color: white;
+    /*inserisco una transizione per far cambiare il colore in modo uniforme --> 0.5 è quella che forse è più
+    utile e ideale, tempi superiori sarebbero esagerati mentre inferiori sono poco percepibili*/
+    transition: 0.5s;
+    margin: auto;
+}
+
+/*per i bottoni, faccio cambiare il colore quando si passa sopra con il mouse per rendere più visibile e più intuitivo il sito
+agli utenti*/
+.bottoni:hover{
+    background-color: rgb(18, 61, 117);
+}
+
+.content{
+    /*se il testo esce dalla box viene nascosto*/
+    overflow: hidden;
+    box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(6, 57, 116, 0.575);
+    padding: 2rem 8rem;
+    width: 30%;
+    height: 50%;
+    border-radius: 2rem;
+    text-align: center;
+    align-items: center;
+    margin: auto;
+    margin-bottom: 3rem;
+}
+
+.lastBtn{
+    /*cerco di staccare il navbar dal content*/
+    margin-top: 1.5rem;
+}
+
+#segnalaErrore{
+    color: red;
+    font-size: small;
+    text-align: left;
+    display: block;
+}
+
+footer {
+    /*inserisco un opacity per non trascurare troppo il testo dietro*/
+    opacity: 0.5;
+    background-color:#215488;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    /*se voglio posso anche farlo che segua la pagina e che si veda in tutti i casi facendo 
+    position:fixed...*/
+    width: 100%;
+    bottom: 0;
+    margin-bottom: 3rem;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+    /*in questo caso specifico di volere il font normale e non in grassetto solo nel caso del footer, dato che il CSS prende in
+    considerazione solo la grafica più specifica, eliminerà il testo in grassetto*/
+    /*font-weight:normal; --> prima avevo impostato font-weight:bold nel caso in cui si trattasse di un link. Eliminato in quanto
+    non era bellissimo esteticamente*/
+}
+  
+footer a:hover {
+    color: #ddd;
+}
+
+a{
+    color: #2a5e92;
+}
+
+.pagina{
+    margin: 2rem;
+}
