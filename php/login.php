@@ -1,67 +1,69 @@
 <?php
-    /*in questo caso controllo che i valori mandati dal form siano settati, nel caso in cui sono settati controllo 
-    se il nome utente e la password sono corretti e, in caso affermativo, mando la pagina alla home dopo aver settato
-    i cookies e le sessioni necessarie ad accedere*/
-    if(isset($_REQUEST["nick"]) && isset($_REQUEST["password"])){
-        /*pulisco i valori utilizzando la funzione trim() per evitare che l'utente abbia inserito degli spazi ai lati inavvertitamente*/
-        $username = trim($_REQUEST["nick"]);
-        $password_utente = trim($_REQUEST["password"]);
-        /*come prima cosa mi devo prendere l'indirizzo del server che utilizzerò poco dopo per aprire la connessione. Nel caso in cui
-        siano presenti degli errori durante l'apertura è sufficiente segnalarlo utilizzando echo o printf per mostrare all'utente o
-        al programmatore che potrebbe esserci stato un problema.*/
-        //facendo riferimento al pacco di slide 25_phpmyadmin utilizzo la variabile globale per ottenere l'indirizzo di rete (slide 25)
-        $nome_server = $_SERVER["SERVER_ADDR"];
-        $nome_utente = "normale";
-        /*la password viene presa dal file contentente lo script sql per creare il database, 
-        si farà la stessa cosa anche per l'utente privilegiato*/ 
-        $password = "posso_leggere?";
-        $nome_database = "social_network";
+    unset($_SESSION["errore"]);
+    include("../including/aperturaSessioni.php");
+        /*in questo caso controllo che i valori mandati dal form siano settati, nel caso in cui sono settati controllo 
+        se il nome utente e la password sono corretti e, in caso affermativo, mando la pagina alla home dopo aver settato
+        i cookies e le sessioni necessarie ad accedere*/
+        if(isset($_REQUEST["nick"]) && isset($_REQUEST["password"])){
+            /*pulisco i valori utilizzando la funzione trim() per evitare che l'utente abbia inserito degli spazi ai lati inavvertitamente*/
+            $username = trim($_REQUEST["nick"]);
+            $password_utente = trim($_REQUEST["password"]);
+            /*come prima cosa mi devo prendere l'indirizzo del server che utilizzerò poco dopo per aprire la connessione. Nel caso in cui
+            siano presenti degli errori durante l'apertura è sufficiente segnalarlo utilizzando echo o printf per mostrare all'utente o
+            al programmatore che potrebbe esserci stato un problema.*/
+            //facendo riferimento al pacco di slide 25_phpmyadmin utilizzo la variabile globale per ottenere l'indirizzo di rete (slide 25)
+            $nome_server = $_SERVER["SERVER_ADDR"];
+            $nome_utente = "normale";
+            /*la password viene presa dal file contentente lo script sql per creare il database, 
+            si farà la stessa cosa anche per l'utente privilegiato*/ 
+            $password = "posso_leggere?";
+            $nome_database = "social_network";
 
-        $conn = mysqli_connect($nome_server, $nome_utente, $password, $nome_database); 
-        //controllo che non ci siano errori nella connessione
-        if(mysqli_connect_errno()){
-            echo "<p>Errore connessione al DBMS: ".mysqli_connect_error()."</p>\n";
-            //faccio in modo che stampi solo questo e segnali l'errore, non deve essere stampata la parte relativa alla registrazione
-        }else{
-                /*in questo caso utilizzo le query nella versione prepared statement per evitare possibili sql injections
-                Quindi, anche se non si dovrebbe correre questo rischio in questo caso, è sempre meglio utilizzare i prepared statement per
-                evitare che vengano inseriti valori non voluti (modificando così la funzione della query)*/
-                $query = "SELECT * FROM utenti WHERE username=?";
-                $stmt = mysqli_prepare($conn, $query);
-                mysqli_stmt_bind_param($stmt, "s", $username);
-                if(!mysqli_stmt_execute($stmt)){
-                    echo "<p>Errore query fallita, ricontrollare quale può essere il problema</p>";
-                }
-                //qui associo ad ogni valore una variabile, poi controllo che corrisponda alla password che si vuole
-                mysqli_stmt_bind_result($stmt, $fetched_nome, $fetched_cognome, $fetched_data_nascita, $fetched_indirizzo, $fetched_username, $fetched_password);
-                $_SESSION["errore"] = false;
-                while($row = mysqli_stmt_fetch($stmt)){
-                    //in questo caso non c'è il rischio che venga stampato più volte dato che il risultato sarà al massimo
-                    //una sola riga
-                    //echo $password_utente."<p>bravissimo</p>".$fetched_password; --> usato per controllare se erano uguali in quanto non entrava nell'if
-                    if($password_utente == $fetched_password){
-                        $_SESSION["entrato"] = true;
-                        echo "OKKKK";
+            $conn = mysqli_connect($nome_server, $nome_utente, $password, $nome_database); 
+            //controllo che non ci siano errori nella connessione
+            if(mysqli_connect_errno()){
+                echo "<p>Errore connessione al DBMS: ".mysqli_connect_error()."</p>\n";
+                //faccio in modo che stampi solo questo e segnali l'errore, non deve essere stampata la parte relativa alla registrazione
+            }else{
+                    /*in questo caso utilizzo le query nella versione prepared statement per evitare possibili sql injections
+                    Quindi, anche se non si dovrebbe correre questo rischio in questo caso, è sempre meglio utilizzare i prepared statement per
+                    evitare che vengano inseriti valori non voluti (modificando così la funzione della query)*/
+                    $query = "SELECT * FROM utenti WHERE username=?";
+                    $stmt = mysqli_prepare($conn, $query);
+                    mysqli_stmt_bind_param($stmt, "s", $username);
+                    if(!mysqli_stmt_execute($stmt)){
+                        echo "<p>Errore query fallita, ricontrollare quale può essere il problema</p>";
                     }
-                }
-                
-                if(isset($_SESSION["entrato"])==false){
-                    /*creo una variabile globale che è true, per indicare che è presente un errore generico sull'interimento*/
-                    $_SESSION["errore"] = true;
-                }   
-                mysqli_stmt_close($stmt);                    
-                if(!mysqli_close($conn)){
-                            echo "<p>La connessione non si riesce a chiudere, errore.</p>";
-                        } 
-                                    
-        }      
-    }   
+                    //qui associo ad ogni valore una variabile, poi controllo che corrisponda alla password che si vuole
+                    mysqli_stmt_bind_result($stmt, $fetched_nome, $fetched_cognome, $fetched_data_nascita, $fetched_indirizzo, $fetched_username, $fetched_password);
+                    $_SESSION["errore"] = false;
+                    while($row = mysqli_stmt_fetch($stmt)){
+                        //in questo caso non c'è il rischio che venga stampato più volte dato che il risultato sarà al massimo
+                        //una sola riga
+                        //echo $password_utente."<p>bravissimo</p>".$fetched_password; --> usato per controllare se erano uguali in quanto non entrava nell'if
+                        if($password_utente == $fetched_password){
+                            $_SESSION["no_errore"] = true;
+                            $_SESSION["entrato"] = true;
+                            header("Location: bacheca.php");
+                        }
+                    }
+                    
+                    if(isset($_SESSION["no_errore"]) == false){
+                        /*creo una variabile globale che è true, per indicare che è presente un errore generico sull'interimento*/
+                        $_SESSION["errore"] = true;
+                    }   
+                    mysqli_stmt_close($stmt);                    
+                    if(!mysqli_close($conn)){
+                                echo "<p>La connessione non si riesce a chiudere, errore.</p>";
+                    } 
+            }      
+        }   
                 ?>
 <!DOCTYPE html>
 <html lang="it">
     <head>
         <meta charset="UTF-8">
-        <title>Login</title>
+        <title>Login VortexNet</title>
         <meta name="author" content="Paolo Aimar">
         <meta name="keywords" lang="it" content="html">
         <meta name="description" content="pagina di accesso al sito web">
@@ -88,7 +90,7 @@
                 non dovrebbero essere visibili nell'URL (sempre precisando che questo non rende automaticamente sicuro il metodo Post, ma riesce
                 a risolvere alcune problematiche del get relative alla privacy)-->
                 <h1>Pagina di accesso al sito</h1>
-                <form id="login" action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST" onsubmit="return validateForm('login');">
+                <form id="login" action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST">
                     <div class="campo">
                         <!--In questo caso ho scelto di utilizzare una segnalazione di errore inserendo il testo dentro dentro ad un output e colorandolo
                         di rosso per segnalare all'utente che il login non è andato a buon fine in quanto mi sembra migliore alla segnalazione
@@ -98,6 +100,10 @@
                         <output id="segnalaErrore"><?php
                     if(isset($_SESSION["errore"])){
                         if($_SESSION["errore"] == true){
+                            /*ho decido di non distinguere gli errori nell'inserimento della password con quelli dell'inserimento
+                            del nome utente (username) in quanto mi sembrava sufficiente specificare un possibile errore
+                            (magari l'utente aveva inserito un utente esistente nel database che però non era il suo, sarebbe stato 
+                            sbagliato segnalarli che era sbagliata la password) */
                             ?>
                             Errore in fase di Login, controllare che utente e password siano stati inseriti correttamente!
                             <?php

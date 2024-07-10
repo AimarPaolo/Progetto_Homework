@@ -1,8 +1,11 @@
+<?php
+    include("../including/aperturaSessioni.php");
+?>
 <!DOCTYPE html>
 <html lang="it">
     <head>
         <meta charset="UTF-8">
-        <title>Scopri NetConnect</title>
+        <title>Scrivi VortexNe</title>
         <meta name="author" content="Paolo Aimar">
         <meta name="keywords" lang="it" content="html">
         <meta name="description" content="pagina per scrivere un nuovo tweet">
@@ -18,7 +21,7 @@
                 <a href="registrazione.php">Registra</a>
                 <a href="scrivi.php">Scrivi</a>
                 <a href="bacheca.php">Bacheca</a>
-                <a href="login.php">Login</a>
+                <a class="<?php include('../including/nomeClasse.php');?>" href="<?php include('../including/disabilitatore.php');?>">Login</a>
                 <a href="scopri.php">Scopri</a>
             </div>
         </nav>
