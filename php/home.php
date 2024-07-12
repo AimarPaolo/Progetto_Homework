@@ -17,7 +17,7 @@
     <body>
         <nav>
             <div class="navbar">
-                <a href="home.php">Home</a>
+                <a class="attiva" href="home.php">Home</a>
                 <a href="registrazione.php">Registra</a>
                 <a href="scrivi.php">Scrivi</a>
                 <a href="bacheca.php">Bacheca</a>

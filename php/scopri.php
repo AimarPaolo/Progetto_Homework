@@ -1,5 +1,35 @@
 <?php
     include("../including/aperturaSessioni.php");
+    $nome_server = $_SERVER["SERVER_ADDR"];
+    $nome_utente = "normale";
+    $password = "posso_leggere?";
+    $nome_database = "social_network";
+    $conn = mysqli_connect($nome_server, $nome_utente, $password, $nome_database); 
+    //controllo che non ci siano errori nella connessione
+    if(mysqli_connect_errno()){
+        echo "<p>Errore connessione al DBMS: ".mysqli_connect_error()."</p>\n";
+        //faccio in modo che stampi solo questo e segnali l'errore, non deve essere stampata la parte relativa alla registrazione
+    }else{
+            $query = "SELECT * FROM tweets";
+            $stmt = mysqli_prepare($conn, $query);
+            if(!mysqli_stmt_execute($stmt)){
+                echo "<p>Errore query fallita, ricontrollare quale può essere il problema</p>";
+            }
+            mysqli_stmt_bind_result($stmt, $fetched_username, $fetched_data, $fetched_testo);
+            $_SESSION["errore"] = false;
+            while($row = mysqli_stmt_fetch($stmt)){
+                include("../including/tweetScopri.php");
+                }
+            }
+            
+            if(isset($_SESSION["no_errore"]) == false){
+                /*creo una variabile globale che è true, per indicare che è presente un errore generico sull'interimento*/
+                $_SESSION["errore"] = true;
+            }   
+            mysqli_stmt_close($stmt);                    
+            if(!mysqli_close($conn)){
+                echo "<p>La connessione non si riesce a chiudere, errore.</p>";
+            }    
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -23,7 +53,8 @@
                 <a href="scrivi.php">Scrivi</a>
                 <a href="bacheca.php">Bacheca</a>
                 <a class="<?php include('../including/nomeClasse.php');?>" href="<?php include('../including/disabilitatore.php');?>">Login</a>
-                <a href="scopri.php">Scopri</a>
+                <a class="attiva" href="scopri.php">Scopri</a>
+                <a class="<?php include('../including/nomeClasseLogout.php');?>" href="<?php include('../including/disabilitaLogout.php');?>">Logout</a>
             </div>
         </nav>
         <footer>

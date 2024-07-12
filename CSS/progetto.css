@@ -18,6 +18,7 @@
 }
 .navbar a:hover{
     background-color: rgb(25, 53, 80);
+    transition: 0.5s;
     /*aggiungo anche in questo caso border color in modo da far colorare anche il bordo quando viene selezionato*/
     border-color:  rgb(25, 53, 80);
 }
@@ -28,7 +29,9 @@ body{
     font-family: "Helvetica Neue", Verdana, sans-serif;
     /*utilizzo questi comandi per centrare il contenuto del body prima orizzontalmente e poi verticalmente */
     justify-content: center; 
-    align-items: center; 
+    align-items: center;
+    /*imposto a zero il margine così che il footer e la navbar rimangano attaccate al bordo.*/ 
+    margin: 0;
     
 }
 
@@ -88,6 +91,8 @@ input[type=text]:hover, input[type=password]:hover, input[type=date]:hover {
     utile e ideale, tempi superiori sarebbero esagerati mentre inferiori sono poco percepibili*/
     transition: 0.5s;
     margin: auto;
+    /*inserisco questo margin per staccare i bottoni di login e cancella quando viene ripiggiolita la finestra*/
+    margin-top: 1rem;
 }
 
 /*per i bottoni, faccio cambiare il colore quando si passa sopra con il mouse per rendere più visibile e più intuitivo il sito
@@ -115,7 +120,7 @@ agli utenti*/
     margin-top: 1.5rem;
 }
 
-#segnalaErrore{
+.segnalaErrore{
     color: red;
     font-size: small;
     text-align: left;
@@ -132,7 +137,6 @@ footer {
     /*se voglio posso anche farlo che segua la pagina e che si veda in tutti i casi facendo 
     position:fixed...*/
     width: 100%;
-    bottom: 0;
     margin-bottom: 3rem;
 }
 
@@ -155,4 +159,24 @@ a{
 
 .pagina{
     margin: 2rem;
+}
+
+.disabilitata{
+    background-color:rgb(171, 213, 247);
+    opacity:0.5;
+}
+/*creo una classe apposta per indicare in quale pagina mi trovo in quel momento, in modo da aiutare l'utente a capirlo*/
+.attiva{
+    /*si poteva utilizzare anche un bordo per indicare la classe attiva, però andava a sballare tutto il navbar in quando il bordo
+    iniziava poi ad occupare uno spazio che prima non occupava (parecchio complicato da sistemare)*/
+    background-color: darkslateblue;
+}
+
+.bodyErrato{
+    /*imposto dei margini per renderlo leggermente più bello*/
+    margin:2rem;
+}
+.successo{
+    color: rgba(4, 100, 33, 0.993);
+    margin-left: 2rem;
 }

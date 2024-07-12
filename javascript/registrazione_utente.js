@@ -35,7 +35,7 @@ function validateForm(formId){
     superiore a 12/13 anni circa)*/
     let birthdate_regexp = /^\d{4}-\d{1,2}-\d{1,2}$/;
     /*lo spazio può essere indicato sia con il carattere che con /s*/
-    let indirizzo_regexp = /^(Via|Corso|Largo|Piazza|Vicolo) [a-zA-ZàèéìòùÀÈÉÌÒÙ\s]+ \d{1,4}$/;
+    let indirizzo_regexp = /^(Via|Corso|Largo|Piazza|Vicolo) [a-zA-Zàèéìòù\s]+ \d{1,4}$/;
     let username_regexp = /^[a-zA-Z][a-zA-Z0-9_-]{3,9}$/;
     let password_regexp = /^(?=(.*[\d]){2})(?=.*[A-Z])(?=.*[a-z])(?=(.*[!?#@%^&*+=]){2})[A-Za-z\d!?#@%^&*+=]{8,16}$/;
     /*in questo caso divido le condizioni perchè così si può segnalare in modo preciso l'errore commesso dall'utente

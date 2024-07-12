@@ -1,5 +1,34 @@
 <?php
     include("../including/aperturaSessioni.php");
+    if(isset($_SESSION["entrato"]))
+        $entrato = $_SESSION["entrato"];
+    else
+        $entrato = false;
+
+    if($entrato == false){
+        ?>
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <title>Scrivi VortexNet</title>
+        <meta name="author" content="Paolo Aimar">
+        <meta name="keywords" lang="it" content="html">
+        <meta name="description" content="pagina per guardare i tweet che l'utente ha fatto">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../CSS/progetto.css">
+        <!--icona presa dalla seguente -> https://icons8.it/icon/set/net/family-ios-->
+        <link rel="icon" type="image/png" href="../Immagini/logo.png">
+    </head>
+    <body class="bodyErrato">
+        <p class="segnalaErrore">Identità non verificata, l'utente non ha ancora eseguito l'accesso. Verifica l'identità per poter accedere a questa parte!</p>
+        <a href="login.php">Torna alla pagina di Login</a>
+    </body>
+</html>
+<?php
+    /*blocco il resto così mostra solo la pagina in cui viene segnalato l'errore*/
+    return;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -19,10 +48,11 @@
             <div class="navbar">
                 <a href="home.php">Home</a>
                 <a href="registrazione.php">Registra</a>
-                <a href="scrivi.php">Scrivi</a>
+                <a class="attiva" href="scrivi.php">Scrivi</a>
                 <a href="bacheca.php">Bacheca</a>
                 <a class="<?php include('../including/nomeClasse.php');?>" href="<?php include('../including/disabilitatore.php');?>">Login</a>
                 <a href="scopri.php">Scopri</a>
+                <a class="<?php include('../including/nomeClasseLogout.php');?>" href="<?php include('../including/disabilitaLogout.php');?>">Logout</a>
             </div>
         </nav>
         <footer>
