@@ -48,8 +48,8 @@
             <div class="navbar">
                 <a href="home.php">Home</a>
                 <a href="registrazione.php">Registra</a>
-                <a class="attiva" href="scrivi.php">Scrivi</a>
-                <a href="bacheca.php">Bacheca</a>
+                <a id="attiva" class="<?php include('../including/nomeClasseLogout.php');?>" href="<?php include('../including/disabilitatoreScrivi.php');?>">Scrivi</a>
+                <a class="<?php include('../including/nomeClasseLogout.php');?>" href="<?php include('../including/disabilitatoreBacheca.php');?>">Bacheca</a>
                 <a class="<?php include('../including/nomeClasse.php');?>" href="<?php include('../including/disabilitatore.php');?>">Login</a>
                 <a href="scopri.php">Scopri</a>
                 <a class="<?php include('../including/nomeClasseLogout.php');?>" href="<?php include('../including/disabilitaLogout.php');?>">Logout</a>

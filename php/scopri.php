@@ -1,35 +1,5 @@
 <?php
     include("../including/aperturaSessioni.php");
-    $nome_server = $_SERVER["SERVER_ADDR"];
-    $nome_utente = "normale";
-    $password = "posso_leggere?";
-    $nome_database = "social_network";
-    $conn = mysqli_connect($nome_server, $nome_utente, $password, $nome_database); 
-    //controllo che non ci siano errori nella connessione
-    if(mysqli_connect_errno()){
-        echo "<p>Errore connessione al DBMS: ".mysqli_connect_error()."</p>\n";
-        //faccio in modo che stampi solo questo e segnali l'errore, non deve essere stampata la parte relativa alla registrazione
-    }else{
-            $query = "SELECT * FROM tweets";
-            $stmt = mysqli_prepare($conn, $query);
-            if(!mysqli_stmt_execute($stmt)){
-                echo "<p>Errore query fallita, ricontrollare quale può essere il problema</p>";
-            }
-            mysqli_stmt_bind_result($stmt, $fetched_username, $fetched_data, $fetched_testo);
-            $_SESSION["errore"] = false;
-            while($row = mysqli_stmt_fetch($stmt)){
-                include("../including/tweetScopri.php");
-                }
-            }
-            
-            if(isset($_SESSION["no_errore"]) == false){
-                /*creo una variabile globale che è true, per indicare che è presente un errore generico sull'interimento*/
-                $_SESSION["errore"] = true;
-            }   
-            mysqli_stmt_close($stmt);                    
-            if(!mysqli_close($conn)){
-                echo "<p>La connessione non si riesce a chiudere, errore.</p>";
-            }    
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -50,13 +20,50 @@
             <div class="navbar">
                 <a href="home.php">Home</a>
                 <a href="registrazione.php">Registra</a>
-                <a href="scrivi.php">Scrivi</a>
-                <a href="bacheca.php">Bacheca</a>
+                <a class="<?php include('../including/nomeClasseLogout.php');?>" href="<?php include('../including/disabilitatoreScrivi.php');?>">Scrivi</a>
+                <a class="<?php include('../including/nomeClasseLogout.php');?>" href="<?php include('../including/disabilitatoreBacheca.php');?>">Bacheca</a>
                 <a class="<?php include('../including/nomeClasse.php');?>" href="<?php include('../including/disabilitatore.php');?>">Login</a>
-                <a class="attiva" href="scopri.php">Scopri</a>
+                <a id="attiva" href="scopri.php">Scopri</a>
                 <a class="<?php include('../including/nomeClasseLogout.php');?>" href="<?php include('../including/disabilitaLogout.php');?>">Logout</a>
             </div>
         </nav>
+        <main>
+            <div class="tweet_cornice">
+                <h1>Scopri i tweets di tutti gli utenti</h1>
+                <?php
+                    $nome_server = $_SERVER["SERVER_ADDR"];
+                    $nome_utente = "normale";
+                    $password = "posso_leggere?";
+                    $nome_database = "social_network";
+                    $conn = mysqli_connect($nome_server, $nome_utente, $password, $nome_database); 
+                    //controllo che non ci siano errori nella connessione
+                    if(mysqli_connect_errno()){
+                        echo "<p>Errore connessione al DBMS: ".mysqli_connect_error()."</p>\n";
+                        //faccio in modo che stampi solo questo e segnali l'errore, non deve essere stampata la parte relativa alla registrazione
+                    }else{
+                            /*non impostando la codifica i caratteri accentati venivano visualizzati in maniera sbagliata. Aggiungendolo
+                            viene impostata la codifica specificata (in questo caso utf8mb4). --> il valore della codifica lo prendo dallo
+                            script presente sul sito, dove specifica anche il charset utilizzato per creare il database*/
+                            mysqli_set_charset($conn, "utf8mb4");
+                            $query = "SELECT * FROM tweets";
+                            $stmt = mysqli_prepare($conn, $query);
+                            if(!mysqli_stmt_execute($stmt)){
+                                echo "<p>Errore query fallita, ricontrollare quale può essere il problema</p>";
+                            }
+                            mysqli_stmt_bind_result($stmt, $fetched_username, $fetched_data, $fetched_testo);
+                            $_SESSION["errore"] = false;
+                            while($row = mysqli_stmt_fetch($stmt)){
+                                include("../including/tweetScopri.php");
+                                }
+                            }
+                            mysqli_stmt_close($stmt);                    
+                            if(!mysqli_close($conn)){
+                                echo "<p>La connessione non si riesce a chiudere, errore.</p>";
+                            }   
+                ?>
+             
+            </div>
+        </main>
         <footer>
             <!--inserisco il simbolo di copyright utilizzando la dicitura &copy; oppure &#169 per evitare succeffici errori di 
             interpretazione del sito web-->

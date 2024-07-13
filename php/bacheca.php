@@ -77,11 +77,6 @@
                     exit();
                 }
             }
-            
-            if(isset($_SESSION["no_errore"]) == false){
-                /*creo una variabile globale che è true, per indicare che è presente un errore generico sull'interimento*/
-                $_SESSION["errore"] = true;
-            }   
             mysqli_stmt_close($stmt);                    
             if(!mysqli_close($conn)){
                         echo "<p>La connessione non si riesce a chiudere, errore.</p>";
@@ -106,8 +101,8 @@
             <div class="navbar">
                 <a href="home.php">Home</a>
                 <a href="registrazione.php">Registra</a>
-                <a href="scrivi.php">Scrivi</a>
-                <a class="attiva" href="bacheca.php">Bacheca</a>
+                <a class="<?php include('../including/nomeClasseLogout.php');?>" href="<?php include('../including/disabilitatoreScrivi.php');?>">Scrivi</a>
+                <a id="attiva" class="<?php include('../including/nomeClasseLogout.php');?>" href="<?php include('../including/disabilitatoreBacheca.php');?>">Bacheca</a>
                 <a class="<?php include('../including/nomeClasse.php');?>" href="<?php include('../including/disabilitatore.php');?>">Login</a>
                 <a href="scopri.php">Scopri</a>
                 <a class="<?php include('../including/nomeClasseLogout.php');?>" href="<?php include('../including/disabilitaLogout.php');?>">Logout</a>

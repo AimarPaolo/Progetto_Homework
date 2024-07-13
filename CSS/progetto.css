@@ -166,7 +166,7 @@ a{
     opacity:0.5;
 }
 /*creo una classe apposta per indicare in quale pagina mi trovo in quel momento, in modo da aiutare l'utente a capirlo*/
-.attiva{
+#attiva{
     /*si poteva utilizzare anche un bordo per indicare la classe attiva, però andava a sballare tutto il navbar in quando il bordo
     iniziava poi ad occupare uno spazio che prima non occupava (parecchio complicato da sistemare)*/
     background-color: darkslateblue;
@@ -179,4 +179,35 @@ a{
 .successo{
     color: rgba(4, 100, 33, 0.993);
     margin-left: 2rem;
+}
+
+.tweet_cornice{
+    border-style: dashed;
+    border-radius: 1rem;
+    border-width: 0.25rem;
+    text-align: center;
+    align-items: center;
+    margin: auto;
+    border-color: midnightblue;
+    margin-bottom: 2rem;
+}
+.parte_tweet{
+    float: left;
+    border: 1rem;
+    margin:1rem;
+}
+.tweet{
+    /*faccio in modo che ogni tweet vada a capo ma che ogni parte del tweet stia sulla stessa riga*/
+    clear: both;
+    display: inline-block;
+    /*per il momento è troppo simile a twitte o facebook, forse è meglio utilizzare un altra palette di colori*/
+    background-color: rgb(191, 179, 224);
+    border-radius: 3rem;
+    margin-bottom: 1rem;
+    border-style: solid;
+    border-color:rgb(11, 5, 56);
+}
+.titolo_grassetto{
+    font-weight: bold;
+    color:#122644;
 }
