@@ -1,5 +1,9 @@
 <?php
     include("../including/aperturaSessioni.php");
+    if(isset($_SESSION["entrato"]))
+        $entrato = $_SESSION["entrato"];
+    else
+        $entrato = false;
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -19,7 +23,7 @@
     <nav>
             <div class="navbar">
                 <a href="home.php">Home</a>
-                <a href="registrazione.php">Registra</a>
+                <a class="<?php include('../including/nomeClasse.php');?>" href="<?php include('../including/disabilitatoreRegistrazione.php');?>">Registra</a>
                 <a class="<?php include('../including/nomeClasseLogout.php');?>" href="<?php include('../including/disabilitatoreScrivi.php');?>">Scrivi</a>
                 <a class="<?php include('../including/nomeClasseLogout.php');?>" href="<?php include('../including/disabilitatoreBacheca.php');?>">Bacheca</a>
                 <a class="<?php include('../including/nomeClasse.php');?>" href="<?php include('../including/disabilitatore.php');?>">Login</a>
@@ -28,6 +32,13 @@
             </div>
         </nav>
         <main>
+            <?php
+            /*non lo vado ad inserire anche in login e registrazione perchè non si potrà mai entrare in quelle pagina quando
+            il login è stato fatto*/
+                if($entrato == true){
+                    include("../including/indicazione.php");
+                }
+            ?>
             <div class="tweet_cornice">
                 <h1>Scopri i tweets di tutti gli utenti</h1>
                 <?php
@@ -45,7 +56,8 @@
                             viene impostata la codifica specificata (in questo caso utf8mb4). --> il valore della codifica lo prendo dallo
                             script presente sul sito, dove specifica anche il charset utilizzato per creare il database*/
                             mysqli_set_charset($conn, "utf8mb4");
-                            $query = "SELECT * FROM tweets";
+                            /*Li ordino per data decrescente perchè è più sensato mostrare per primi i commenti più recenti*/
+                            $query = "SELECT * FROM tweets ORDER BY data DESC";
                             $stmt = mysqli_prepare($conn, $query);
                             if(!mysqli_stmt_execute($stmt)){
                                 echo "<p>Errore query fallita, ricontrollare quale può essere il problema</p>";

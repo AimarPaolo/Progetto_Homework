@@ -1,6 +1,38 @@
 <?php
-    unset($_SESSION["errore"]);
     include("../including/aperturaSessioni.php");
+    if(isset($_SESSION["entrato"]))
+        $entrato = $_SESSION["entrato"];
+    else
+        $entrato = false;
+
+    if($entrato == true){
+     ?>
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <title>Scrivi VortexNet</title>
+        <meta name="author" content="Paolo Aimar">
+        <meta name="keywords" lang="it" content="html">
+        <meta name="description" content="pagina per guardare i tweet che l'utente ha fatto">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../CSS/progetto.css">
+        <link rel="icon" type="image/png" href="../Immagini/logo.png">
+    </head>
+    <!--in questo caso ho appena controllato se l'utente aveva già fatto l'accesso. In caso affermativo blocco l'accesso al login e alla registrazione in quanto
+    non avrebbe senso permettere all'utente di rifare il login una volta che l'ha già fatto-->
+    <body class="bodyErrato">
+        <p class="segnalaErrore">Identità già verificata, se vuoi iscriverti con un altro account o accedere di nuovo alla pagina di login, esegui prima il <a href="../including/logout.php">LOGOUT</a></p>
+        <a href="bacheca.php">>>Torna alla pagina di Bacheca</a>
+    </body>
+</html>
+<?php
+    /*blocco il resto così mostra solo la pagina in cui viene segnalato l'errore*/
+    return;
+    }
+?>
+<?php
+    unset($_SESSION["errore"]);
         /*in questo caso controllo che i valori mandati dal form siano settati, nel caso in cui sono settati controllo 
         se il nome utente e la password sono corretti e, in caso affermativo, mando la pagina alla home dopo aver settato
         i cookies e le sessioni necessarie ad accedere*/
@@ -91,7 +123,7 @@
         <nav>
             <div class="navbar">
                 <a href="home.php">Home</a>
-                <a href="registrazione.php">Registra</a>
+                <a class="<?php include('../including/nomeClasse.php');?>" href="<?php include('../including/disabilitatoreRegistrazione.php');?>">Registra</a>
                 <a class="<?php include('../including/nomeClasseLogout.php');?>" href="<?php include('../including/disabilitatoreScrivi.php');?>">Scrivi</a>
                 <a class="<?php include('../including/nomeClasseLogout.php');?>" href="<?php include('../including/disabilitatoreBacheca.php');?>">Bacheca</a>
                 <a id="attiva" class="attiva" href="login.php">Login</a>

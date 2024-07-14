@@ -1,5 +1,9 @@
 <?php
     include("../including/aperturaSessioni.php");
+    if(isset($_SESSION["entrato"]))
+        $entrato = $_SESSION["entrato"];
+    else
+        $entrato = false;
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -18,7 +22,7 @@
         <nav>
             <div class="navbar">
                 <a id="attiva" href="home.php">Home</a>
-                <a href="registrazione.php">Registra</a>
+                <a class="<?php include('../including/nomeClasse.php');?>" href="<?php include('../including/disabilitatoreRegistrazione.php');?>">Registra</a>
                 <a class="<?php include('../including/nomeClasseLogout.php');?>" href="<?php include('../including/disabilitatoreScrivi.php');?>">Scrivi</a>
                 <a class="<?php include('../including/nomeClasseLogout.php');?>" href="<?php include('../including/disabilitatoreBacheca.php');?>">Bacheca</a>
                 <a class="<?php include('../including/nomeClasse.php');?>" href="<?php include('../including/disabilitatore.php');?>">Login</a>
@@ -27,6 +31,11 @@
             </div>
         </nav>
         <main>
+            <?php
+                if($entrato == true){
+                    include("../including/indicazione.php");
+                }
+            ?>
             <div class="pagina">
                 <h1>Benvenuti su VortexNet: Il Futuro della Comunicazione Sociale.</h1>
                 <div class="descrizione">

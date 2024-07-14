@@ -66,7 +66,9 @@ input[type=text], input[type=password], input[type=date] {
 
 h1{
     color: rgb(6, 19, 94);
-    font-size: medium;
+    font-size:1rem;
+    /*inserisco un margine sinistro e destro per evitare che nella pagina scrivi.php il bordo dei si attacchi al titolo*/
+    margin: 1rem 2rem 1rem 2rem;
 }
 
 /*faccio cambiare il colore anche del bordo quando passo sopra ad un determinato campo*/
@@ -179,6 +181,7 @@ a{
 .successo{
     color: rgba(4, 100, 33, 0.993);
     margin-left: 2rem;
+    margin-bottom: 1rem;
 }
 
 .tweet_cornice{
@@ -188,8 +191,9 @@ a{
     text-align: center;
     align-items: center;
     margin: auto;
-    border-color: midnightblue;
+    border-color: rgb(28, 30, 65);
     margin-bottom: 2rem;
+    width: max-content;
 }
 .parte_tweet{
     float: left;
@@ -203,11 +207,100 @@ a{
     /*per il momento è troppo simile a twitte o facebook, forse è meglio utilizzare un altra palette di colori*/
     background-color: rgb(191, 179, 224);
     border-radius: 3rem;
-    margin-bottom: 1rem;
+    margin: 1rem;
     border-style: solid;
     border-color:rgb(11, 5, 56);
 }
 .titolo_grassetto{
     font-weight: bold;
     color:#122644;
+}
+
+.new_tweet{
+    border-style: solid;
+    border-width: 0.5rem;
+    border-color:#122644;
+    margin: auto;
+    align-content: center;
+    width: fit-content;
+    text-align: center;
+    /*stacco il bordo del tweet con il footer*/
+    margin-bottom: 2rem;
+    background-color: rgb(178, 186, 255);
+}
+/*faccio in modo che l'utente non possa modificare la grandezza della text area in quanto
+potrebbe modificare in maniera non voluta la grafica.*/
+#testo{
+    display: block;
+    clear:both;
+    width: 15rem;
+    height: 15rem;
+    resize:none;
+    border-width: medium;
+    border-color: rgb(76, 50, 150);
+    margin: auto;
+    color:#3f77f1
+}
+/*in questo caso aggiungo display block per staccarlo dalla line guida ed un margin-bottom*/
+.bottoni_scrivi{
+    justify-content: left;
+    align-items: center;
+    padding: 0.625rem 1.25rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 0.3125rem;
+    /*utilizzando il pointer rendo l'utente consapevole di essere sopra un qualcosa che è possibile selezionare*/
+    cursor: pointer;
+    background-color: #122644; 
+    color: white;
+    /*inserisco una transizione per far cambiare il colore in modo uniforme --> 0.5 è quella che forse è più
+    utile e ideale, tempi superiori sarebbero esagerati mentre inferiori sono poco percepibili*/
+    transition: 0.5s;
+    margin: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+.new_tweet img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 1rem;
+    margin: 1rem 0 1rem 0;
+}
+/*in questo caso cambio il colore della guida perchè non si riesce a leggere in modo appropriato con il colore dello sfondo inserito*/
+.guida_scrivi{
+    color:rgb(14, 28, 155);
+    opacity: 0.7;
+    font-size: 0.5rem;
+    margin-top: 0.5rem;
+    font-weight: bold;
+    text-align: left;
+}
+
+.bottoni_scrivi:hover{
+    background-color: rgb(18, 61, 117);
+}
+
+.indicazione{
+    margin-left: 2rem;
+    border-width: 0.25rem;
+    border-radius: 1rem;
+    border-color:rgb(43, 58, 105);
+    display: block;
+    border-style: solid;
+    width: fit-content;
+}
+
+.bordo{
+    margin: 1rem;
+}
+
+#pagina_logout{
+    text-align: center;
+    margin-top: 4rem;
+}
+
+#richiesta{
+    color: rgb(38, 47, 133);
+    font-weight: bold;
 }
