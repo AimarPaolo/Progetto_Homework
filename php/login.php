@@ -115,10 +115,10 @@
         <meta name="keywords" lang="it" content="html">
         <meta name="description" content="pagina di accesso al sito web">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="../javascript/login_utente.js"></script>
         <link rel="stylesheet" href="../CSS/progetto.css">
         <!--icona presa dalla seguente -> https://icons8.it/icon/set/net/family-ios-->
-        <link rel="icon" type="image/png" href="../Immagini/logo.png">
+        <link rel="icon" type="image/png" href="../Immagini/logo.png"> 
+        <script src="../javascript/login_utente.js"></script>
     </head>
     <body>
         <nav>
@@ -138,7 +138,7 @@
                 non dovrebbero essere visibili nell'URL (sempre precisando che questo non rende automaticamente sicuro il metodo Post, ma riesce
                 a risolvere alcune problematiche del get relative alla privacy)-->
                 <h1>Pagina di accesso al sito</h1>
-                <form id="login" action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST">
+                <form id="login" name="login" action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST">
                     <div class="campo">
                         <!--In questo caso ho scelto di utilizzare una segnalazione di errore inserendo il testo dentro dentro ad un output e colorandolo
                         di rosso per segnalare all'utente che il login non è andato a buon fine in quanto mi sembra migliore alla segnalazione
@@ -172,7 +172,9 @@
                             <!--Per creare un pulsante che cancelli i valori del form potevo anche utilizzare un bottone che richiamasse
                             una funzione javascript per cancellare i valori dentro ai campi del form. Ho preferito utilizzare questo 
                             input reset in quanto ci viene già fornito direttamente eseguendo le stesse funzioni -->
-                            <input class="bottoni" type="reset" id="cancella" name="cancella" value="Cancella">
+                            <!--cambio: non è possibile utilizzare clear perchè cancella solo il campo password, mentre la traccia richiede di
+                            eliminare tutti i campi-->
+                            <input class="bottoni" type="button" id="cancella" name="cancella" value="Cancella" onclick="pulisciForm('login');">
                         </div>   
                     </div> 
                 </form>

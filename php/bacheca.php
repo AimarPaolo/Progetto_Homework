@@ -126,23 +126,22 @@
                     }
                     //qui associo ad ogni valore una variabile, poi controllo che corrisponda alla password che si vuole
                     mysqli_stmt_bind_result($stmt, $fetched_username, $fetched_data, $fetched_testo);
-                    $esiste_risultato = mysqli_stmt_fetch($stmt);
-                    /*in questo caso voglio che stampi i filtri solamente quando ci sono risultati oppure se è già stato settato un filtro*/
-                    if($esiste_risultato) {
-                        while($row = mysqli_stmt_fetch($stmt)){
+                        $has_results = false;
+                        while (mysqli_stmt_fetch($stmt)) {
+                            $risultato = true;
                             /*implemento una struttura simile a quella di scopri per mantenere un format coerente in tutte le pagine*/
                             include("../including/tweetBacheca.php");
                         }
+                        if (!$risultato && (!isset($_REQUEST["filtro1"]) && !isset($_REQUEST["filtro2"]))) {
                     ?>
                     <?php
-                    }elseif(!isset($_REQUEST["filtro1"]) && !isset($_REQUEST["filtro2"])){
                         /*in questo caso ho controllato se esisteva un risultato. In caso affermativo stampo i tweet che sono 
                         stati scritto dall'utente, in caso negativo si stampa il messaggio per invogliare l'utente a scrivere un messaggio*/
                         ?>
                         <p class="aggiungi_tweet">Non hai ancora scritto nessun tweet... Aggiungine uno per condividere subito quello che pensi con tutti!</p>
                         <p class="aggiungi_tweet">Per aggiungere un tweet passa alla pagina <a href="scrivi.php">SCRIVI</a></p>
                         <?php
-                    }else{
+                    }elseif(!$risultato){
                         ?>
                         <p class="aggiungi_tweet">Non sono presenti tweet nel periodo che hai selezionato. Prova a selezionarne un altro oppure scrivine uno ora!</p>
                         <p class="aggiungi_tweet">Per aggiungere un tweet passa alla pagina <a href="scrivi.php">SCRIVI</a></p>
@@ -165,9 +164,9 @@
                     ?>
                 </output>
                 <label for="filtro1">Inserire la data di inzio per cui si vuole filtrare: </label>
-                <input type="date" id="filtro1" name="filtro1">
+                <input type="datetime-local" id="filtro1" name="filtro1">
                 <label for="filtro1">Inserire la data di fine per cui si vuole filtrare: </label>
-                <input type="date" id="filtro2" name="filtro2">
+                <input type="datetime-local" id="filtro2" name="filtro2">
                 <input class="bottoni" type="button" id="filtra" name="filtra" value="filtra" onclick="validateForm('form_bacheca');">
                 <!--in questo caso devo fare in modo che accetti anche il fatto che non siano settati i due filtri, quindi richiamo una funzione
                 che poi farà un submit diretto del form (senza eseguire controlli)-->
