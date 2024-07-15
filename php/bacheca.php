@@ -33,26 +33,6 @@
     /*blocco il resto così mostra solo la pagina in cui viene segnalato l'errore*/
     return;
     }
-    $nome_server = $_SERVER["SERVER_ADDR"];
-    $nome_utente = "normale";
-    $password = "posso_leggere?";
-    $nome_database = "social_network";
-    $conn = mysqli_connect($nome_server, $nome_utente, $password, $nome_database); 
-    //controllo che non ci siano errori nella connessione
-    if(mysqli_connect_errno()){
-        echo "<p>Errore connessione al DBMS: ".mysqli_connect_error()."</p>\n";
-        //faccio in modo che stampi solo questo e segnali l'errore, non deve essere stampata la parte relativa alla registrazione
-    }else{
-            $query = "SELECT * FROM tweets WHERE username=?";
-            $stmt = mysqli_prepare($conn, $query);
-            $username = $_SESSION["nome_utente"];
-            mysqli_stmt_bind_param($stmt, "s", $username);
-            if(!mysqli_stmt_execute($stmt)){
-                echo "<p>Errore query fallita, ricontrollare quale può essere il problema</p>";
-            }
-            //qui associo ad ogni valore una variabile, poi controllo che corrisponda alla password che si vuole
-            mysqli_stmt_bind_result($stmt, $fetched_username, $fetched_data, $fetched_testo);
-    }
     ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -66,6 +46,7 @@
         <link rel="stylesheet" href="../CSS/progetto.css">
         <!--icona presa dalla seguente -> https://icons8.it/icon/set/net/family-ios-->
         <link rel="icon" type="image/png" href="../Immagini/logo.png">
+        <script src="../javascript/filtri_bacheca.js"></script>
     </head>
     <body>
         <nav>
@@ -80,6 +61,8 @@
             </div>
         </nav>
         <main>
+            <!--inserisco un'immagine non troppo grande per evitare di ridimensionarla troppo, in quanto voglio creare un mini
+            pattern a forma di tornado (inserita come sfondo del body)-->
             <?php
                 /*ho voluto creare un messaggio che avvisa l'utente quando è riuscito ad accedere, SOLAMENTE la prima volta, quando inizia a navigare 
                 non mi interessa più avvisarlo nuovamente e quindi il messaggio scompare (per questo non ho utilizzato la variabile entrato, quella rimane true quando 
@@ -96,7 +79,100 @@
                 if($entrato == true){
                     include("../including/indicazione.php");
                 }
+                ?>
+                <h1>Divertiti a guardare i tweet scritti da te</h1>
+                <?php
+                $nome_server = $_SERVER["SERVER_ADDR"];
+                $nome_utente = "normale";
+                $password = "posso_leggere?";
+                $nome_database = "social_network";
+                $conn = mysqli_connect($nome_server, $nome_utente, $password, $nome_database); 
+                mysqli_set_charset($conn, "utf8mb4");
+                //controllo che non ci siano errori nella connessione
+                if(mysqli_connect_errno()){
+                    echo "<p>Errore connessione al DBMS: ".mysqli_connect_error()."</p>\n";
+                    //faccio in modo che stampi solo questo e segnali l'errore, non deve essere stampata la parte relativa alla registrazione
+                }else{
+                    if(isset($_REQUEST["filtro1"]) && isset($_REQUEST["filtro2"]) && $_REQUEST["filtro1"]!="" && $_REQUEST["filtro2"]){
+                        //se entrambi i filtri sono settati controllo che la data sia compresa tra quei due valori
+                        $query = "SELECT * FROM tweets WHERE username=? AND data>=? AND data<=? ORDER BY data DESC";
+                        $stmt = mysqli_prepare($conn, $query);
+                        $username = $_SESSION["nome_utente"];
+                        $data1 = $_REQUEST["filtro1"];
+                        $data2 = $_REQUEST["filtro2"];
+                        mysqli_stmt_bind_param($stmt, "sss", $username, $data1, $data2);
+                    }elseif(isset($_REQUEST["filtro1"]) && $_REQUEST["filtro1"] != ""){
+                        //in questo caso ho solo il primo filtro settato, quindi mi prenderò tutti i tweet successivi a quella data
+                        $query = "SELECT * FROM tweets WHERE username=? AND data>=? ORDER BY data DESC";
+                        $stmt = mysqli_prepare($conn, $query);
+                        $username = $_SESSION["nome_utente"];
+                        $data1 = $_REQUEST["filtro1"];
+                        mysqli_stmt_bind_param($stmt, "ss", $username, $data1);
+                    }elseif(isset($_REQUEST["filtro2"]) && $_REQUEST["filtro2"] != ""){
+                        $query = "SELECT * FROM tweets WHERE username=? AND data<=? ORDER BY data DESC";
+                        $stmt = mysqli_prepare($conn, $query);
+                        $username = $_SESSION["nome_utente"];
+                        $data2 = $_REQUEST["filtro2"];
+                        mysqli_stmt_bind_param($stmt, "ss", $username, $data2);
+                    }elseif((!isset( $_REQUEST["filtro2"]) && !isset($_REQUEST["filtro1"])) || ($_REQUEST["filtro1"] == "" && $_REQUEST["filtro1"]=="")){
+                        //se non è settato nessun filtro, la pagina viene visualizzata normalmente senza filtri sulle data
+                        $query = "SELECT * FROM tweets WHERE username=? ORDER BY data DESC";
+                        $stmt = mysqli_prepare($conn, $query);
+                        $username = $_SESSION["nome_utente"];
+                        mysqli_stmt_bind_param($stmt, "s", $username);
+                    }
+                    if (!mysqli_stmt_execute($stmt)) {
+                        $_SESSION["messaggio_di_errore"] = "Errore query fallita, ricontrollare quale può essere il problema";
+                    }
+                    //qui associo ad ogni valore una variabile, poi controllo che corrisponda alla password che si vuole
+                    mysqli_stmt_bind_result($stmt, $fetched_username, $fetched_data, $fetched_testo);
+                    $esiste_risultato = mysqli_stmt_fetch($stmt);
+                    /*in questo caso voglio che stampi i filtri solamente quando ci sono risultati oppure se è già stato settato un filtro*/
+                    if($esiste_risultato) {
+                        while($row = mysqli_stmt_fetch($stmt)){
+                            /*implemento una struttura simile a quella di scopri per mantenere un format coerente in tutte le pagine*/
+                            include("../including/tweetBacheca.php");
+                        }
+                    ?>
+                    <?php
+                    }elseif(!isset($_REQUEST["filtro1"]) && !isset($_REQUEST["filtro2"])){
+                        /*in questo caso ho controllato se esisteva un risultato. In caso affermativo stampo i tweet che sono 
+                        stati scritto dall'utente, in caso negativo si stampa il messaggio per invogliare l'utente a scrivere un messaggio*/
+                        ?>
+                        <p class="aggiungi_tweet">Non hai ancora scritto nessun tweet... Aggiungine uno per condividere subito quello che pensi con tutti!</p>
+                        <p class="aggiungi_tweet">Per aggiungere un tweet passa alla pagina <a href="scrivi.php">SCRIVI</a></p>
+                        <?php
+                    }else{
+                        ?>
+                        <p class="aggiungi_tweet">Non sono presenti tweet nel periodo che hai selezionato. Prova a selezionarne un altro oppure scrivine uno ora!</p>
+                        <p class="aggiungi_tweet">Per aggiungere un tweet passa alla pagina <a href="scrivi.php">SCRIVI</a></p>
+                        <?php
+                    }
+                }
             ?>
+            <!--In questo caso non metto nessun controllo degli input perchè non mi interessa controllare che siano settati (sicuro sono
+            corretti in quanto utilizzo un input date). Cercherò solo di escludere attraverso PHP -->
+            <!--metto inoltre un metodo get per il form, in quanto non sto inviando dati sensibili o file per i quali è strettamente
+            richiesto e consigliato il metodo POST-->
+            <form id="form_bacheca" name="form_bacheca" action="bacheca.php" method="GET">
+                <output id="segnalaErrore" name="segnalaErrore">
+                    <?php
+                        if(isset($_SESSION["messaggio_di_errore"])){
+                            $mess = $_SESSION["messaggio_di_errore"];
+                            echo $mess;
+                            unset($_SESSION["messaggio_di_errore"]);
+                        }
+                    ?>
+                </output>
+                <label for="filtro1">Inserire la data di inzio per cui si vuole filtrare: </label>
+                <input type="date" id="filtro1" name="filtro1">
+                <label for="filtro1">Inserire la data di fine per cui si vuole filtrare: </label>
+                <input type="date" id="filtro2" name="filtro2">
+                <input class="bottoni" type="button" id="filtra" name="filtra" value="filtra" onclick="validateForm('form_bacheca');">
+                <!--in questo caso devo fare in modo che accetti anche il fatto che non siano settati i due filtri, quindi richiamo una funzione
+                che poi farà un submit diretto del form (senza eseguire controlli)-->
+                <input class="bottoni" type="button" id="salta_filtri" name="salta_filtri" value="Mostra tutti i tweet personali" onclick="submitCall('form_bacheca');">
+            </form>
         </main>
         <footer>
             <!--inserisco il simbolo di copyright utilizzando la dicitura &copy; oppure &#169 per evitare succeffici errori di 

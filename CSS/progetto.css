@@ -21,6 +21,17 @@
     transition: 0.5s;
     /*aggiungo anche in questo caso border color in modo da far colorare anche il bordo quando viene selezionato*/
     border-color:  rgb(25, 53, 80);
+    color:white;
+}
+
+main{
+    /*aggiungo un margine al main per evitare che parti di testo rimangano attaccate ai bordi*/
+    margin:2rem;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
 }
 
 body{
@@ -32,8 +43,11 @@ body{
     align-items: center;
     /*imposto a zero il margine così che il footer e la navbar rimangano attaccate al bordo.*/ 
     margin: 0;
-    
+    bottom: 0;
+    /*aggiungo del padding al fondo per evitare che del contenuto si sovrapponga al footer*/
+    padding-bottom: 5rem;
 }
+
 
 /*utilizzando input type=text o date posso cambiare tutti i bottoni e i cambi che hanno quel determinato type*/
 input[type=text], input[type=password], input[type=date] {
@@ -136,10 +150,9 @@ footer {
     color: white;
     text-align: center;
     padding: 1rem;
-    /*se voglio posso anche farlo che segua la pagina e che si veda in tutti i casi facendo 
-    position:fixed...*/
     width: 100%;
-    margin-bottom: 3rem;
+    bottom: 0;
+    left: 0;
 }
 
 footer a {
@@ -156,7 +169,13 @@ footer a:hover {
 }
 
 a{
-    color: #2a5e92;
+    color: #090b53;
+}
+
+a:hover{
+    /*poco percepibile il cambiamento di colore ma non volevo che risultasse troppo diverso*/
+    color: #160ca5;
+    transition: 0.5s;
 }
 
 .pagina{
@@ -171,7 +190,7 @@ a{
 #attiva{
     /*si poteva utilizzare anche un bordo per indicare la classe attiva, però andava a sballare tutto il navbar in quando il bordo
     iniziava poi ad occupare uno spazio che prima non occupava (parecchio complicato da sistemare)*/
-    background-color: darkslateblue;
+    background-color: rgb(27, 35, 83);
 }
 
 .bodyErrato{
@@ -285,10 +304,12 @@ potrebbe modificare in maniera non voluta la grafica.*/
     margin-left: 2rem;
     border-width: 0.25rem;
     border-radius: 1rem;
+    background-color: #071a36;
     border-color:rgb(43, 58, 105);
     display: block;
     border-style: solid;
     width: fit-content;
+    margin-bottom: 2rem;
 }
 
 .bordo{
@@ -303,4 +324,54 @@ potrebbe modificare in maniera non voluta la grafica.*/
 #richiesta{
     color: rgb(38, 47, 133);
     font-weight: bold;
+}
+
+.titolo{
+    font-weight: bold;
+    color: white;
+}
+
+.captation{
+    color: grey;
+}
+.parte_tweet_bacheca{
+    float: left;
+    border: 1rem;
+    margin:1rem;
+}
+.tweet_bacheca{
+    /*faccio in modo che ogni tweet vada a capo ma che ogni parte del tweet stia sulla stessa riga*/
+    clear: both;
+    display: inline-block;
+    /*per il momento è troppo simile a twitte o facebook, forse è meglio utilizzare un altra palette di colori*/
+    background-color: rgb(112, 188, 238);
+    /*cambio leggermente la grafica facendo un bordo non arrotondato, prendendo spunto dalla grafica dei messaggi di whatsapp*/
+    border-radius:0 3rem 3rem 3rem;
+    margin: 1rem;
+    border-style: solid;
+    border-color:rgba(55, 17, 196, 0.575);
+}
+.titolo_grassetto_bacheca{
+    font-weight: bold;
+    color:#122644;
+}
+#body_scopri{
+    background-image: url("../Immagini/immagine_tornado_pattern.jpg");
+    background-size: 5rem;
+    background-repeat: repeat;
+}
+.aggiungi_tweet{
+    font-size: 1rem;
+    color: #4692df;
+    /*lo scrivo in grassetto per mostrare meglio il messaggio ed invogliare l'utente a scrivere qualcosa*/
+    font-weight: bold;
+}
+
+label{
+    color:#090b53;
+}
+
+#form_bacheca{
+    width: 50%;
+    margin: auto;
 }

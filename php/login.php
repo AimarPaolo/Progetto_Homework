@@ -52,6 +52,7 @@
             $nome_database = "social_network";
 
             $conn = mysqli_connect($nome_server, $nome_utente, $password, $nome_database); 
+            mysqli_set_charset($conn, "utf8mb4");
             //controllo che non ci siano errori nella connessione
             if(mysqli_connect_errno()){
                 echo "<p>Errore connessione al DBMS: ".mysqli_connect_error()."</p>\n";

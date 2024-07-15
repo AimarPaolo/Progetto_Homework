@@ -5,6 +5,7 @@
     $password = "posso_leggere?";
     $nome_database = "social_network";
     $conn = mysqli_connect($nome_server, $nome_utente, $password, $nome_database); 
+    mysqli_set_charset($conn, "utf8mb4");
     /*limit indica il numero di rows che si va a salezionare. Inserendo limit 1 prenderò solamente l'ultimo tweet inserito (ordino
     anche per data altrimenti prenderei solamente il primo)*/
     $query = "SELECT * FROM tweets WHERE username=? ORDER BY data DESC LIMIT 1";
@@ -20,14 +21,14 @@
     }else{
     mysqli_stmt_bind_result($stmt, $fetched_username, $fetched_data, $fetched_testo);
     $_SESSION["errore"] = false;
-    $risultato = mysqli_stmt_fetch($stmt);
-    if($risultato) {
+    $esiste_risultato = mysqli_stmt_fetch($stmt);
+    if($esiste_risultato) {
         ?>
         <div class="indicazione">
             <div class="bordo">
-                <div class="titolo_grassetto">Username:</div><?php echo $fetched_username; ?>
-                <div class="titolo_grassetto">Data:</div><?php echo $fetched_data; ?>
-                <div class="titolo_grassetto">Testo:</div><?php echo $fetched_testo; ?>
+                <div class="titolo">Username:</div><div class="captation"><?php echo $fetched_username; ?></div>
+                <div class="titolo">Data:</div><div class="captation"><?php echo $fetched_data; ?></div>
+                <div class="titolo">Testo:</div><div class="captation"><?php echo $fetched_testo; ?></div>
             </div>
         </div>
         <?php
@@ -36,9 +37,9 @@
         <div class="indicazione">
                 <div class="bordo">
                     <!--nel caso in cui non ci siano ancora dei tweet non viene mostrato niente nel valore della data e del testo-->
-                    <div class="titolo_grassetto">Username:</div><?php echo $_SESSION["nome_utente"] ?>
-                    <div class="titolo_grassetto">Data:</div>
-                    <div class="titolo_grassetto">Testo:</div>
+                    <div class="titolo">Username:</div><div class="captation"><?php echo $_SESSION["nome_utente"] ?></div>
+                    <div class="titolo">Data:</div>
+                    <div class="titolo">Testo:</div>
                 </div>
             </div>
             <?php

@@ -50,7 +50,7 @@
                 VortexNet non è solo un social network, è una comunità vibrante e diversificata
                 che valorizza la comunicazione aperta e l'interconnessione globale. Che tu voglia rimanere aggiornato sulle 
                 ultime tendenze, esprimere le tue opinioni o semplicemente scoprire nuovi punti di vista, VortexNet è il posto 
-                giusto per te. Non perdere l'opportunità di essere parte di qualcosa di grande. <a href="registrazione.php">Iscriviti</a> a VortexNet 
+                giusto per te. Non perdere l'opportunità di essere parte di qualcosa di grande. Iscriviti a VortexNet 
                 oggi stesso e inizia a esplorare un mondo di tweet senza confini!
                 </div>
             </div>

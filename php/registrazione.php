@@ -22,7 +22,7 @@
     <body class="bodyErrato">
         <p class="segnalaErrore">Identità già verificata, se vuoi iscriverti con un altro account o accedere di nuovo alla pagina di login, esegui prima il <a href="../including/logout.php">LOGOUT</a></p>
         <a href="bacheca.php">>>Torna alla pagina di Bacheca</a>
-    </body>2
+    </body>
 </html>
 <?php
     /*blocco il resto così mostra solo la pagina in cui viene segnalato l'errore*/
@@ -102,6 +102,7 @@
         $nome_database = "social_network";
 
         $conn = mysqli_connect($nome_server, $nome_utente, $password_accesso, $nome_database); 
+        mysqli_set_charset($conn, "utf8mb4");
         if(mysqli_connect_errno()){
             echo "<p>Errore connessione al DBMS: ".mysqli_connect_error()."</p>\n";
             exit();

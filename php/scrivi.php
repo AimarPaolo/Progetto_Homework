@@ -40,6 +40,7 @@
         if(mysqli_connect_errno()){
             $_SESSION["messaggio_di_errore"] = "Errore connessione al DBMS: ".mysqli_connect_error();
         }
+        mysqli_set_charset($conn, "utf8mb4");
         /*mi prendo l'ora in cui è stato creato il tweet attraverso uno dei comandi di php*/
         /*volendo si poteva anche utilizzare il comando NOW(). Dato che viene richiesto l'orario del server a cui è connesso il
         sito si utilizza il comando scritto qui sotto, NON conciderà con quello si vede sull'orologio in quando si riferisce
@@ -56,7 +57,12 @@
             if (!mysqli_stmt_execute($stmt)) {
                 $_SESSION["messaggio_di_errore"] = "Errore query fallita, ricontrollare quale può essere il problema";
             } else {
-                $_SESSION["messaggio_di_successo"] = "Il tuo tweet è stato postato con successo!! Per visualizzarlo apri la tua bacheca oppure cercalo nella pagina di scopri.";
+                $_SESSION["messaggio_di_successo"] = "Il tuo tweet è stato postato con successo!!";
+                /*ho deciso di tenere i filtri validi fino alla chiusura del browser, eccetto quando viene scritto un nuovo tweet.
+                In quel caso elimino le variabili di sessione così che quando vengo reindirizzato alla pagina di bacheca non 
+                rimangono i filtri settati e posso vedere tutti i tweet scritti dall'utente*/
+                unset($_SESSION["filtro1"]);
+                unset($_SESSION["filtro2"]);
             }
             
         } else {
@@ -110,7 +116,7 @@
                     ?>
                     </div>
             <div class="new_tweet">
-                <h1>Scrivi un tweet per condividerlo con tutti! Condividi con le persone quello che pensi</h1>
+                <h1>Scrivi un tweet per condividerlo con tutti! Mostra alle persone quello che pensi</h1>
                 <!--alt corrisponde all'alternativa nel caso in cui non si riesca a caricare l'immagine. Viene mostrato il testo
                 per non presentare una parte completamente vuota-->
                 <div><img src="../Immagini/condividi.jpg" alt="immagine condivisione tweet"></div>

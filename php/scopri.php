@@ -19,7 +19,7 @@
         <!--icona presa dalla seguente -> https://icons8.it/icon/set/net/family-ios-->
         <link rel="icon" type="image/png" href="../Immagini/logo.png">
     </head>
-    <body>
+    <body id="body_scopri">
     <nav>
             <div class="navbar">
                 <a href="home.php">Home</a>
