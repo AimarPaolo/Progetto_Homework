@@ -50,7 +50,7 @@ body{
 
 
 /*utilizzando input type=text o date posso cambiare tutti i bottoni e i cambi che hanno quel determinato type*/
-input[type=text], input[type=password], input[type=date] {
+input[type=text], input[type=password], input[type=date], input[type=datetime-local] {
     width: 100%;
     padding: 0.7rem 1.25rem;
     /*inserisco poco margine bottom in modo che la linea guida per l'inserimento dell'input non si stacchi di molto*/
@@ -119,6 +119,20 @@ agli utenti*/
 
 .content{
     /*se il testo esce dalla box viene nascosto*/
+    overflow: hidden;
+    box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(6, 57, 116, 0.575);
+    padding: 2rem 8rem;
+    width: 30%;
+    height: 50%;
+    border-radius: 2rem;
+    text-align: center;
+    align-items: center;
+    margin: auto;
+    margin-bottom: 3rem;
+    /*inserisco una dimensione minima per evitare che si deformi*/
+    min-width: 50%;
+}
+.content_login{
     overflow: hidden;
     box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(6, 57, 116, 0.575);
     padding: 2rem 8rem;
@@ -204,7 +218,7 @@ a:hover{
 }
 
 .tweet_cornice{
-    border-style: dashed;
+    border-style:dashed;
     border-radius: 1rem;
     border-width: 0.25rem;
     text-align: center;
@@ -224,7 +238,7 @@ a:hover{
     clear: both;
     display: inline-block;
     /*per il momento è troppo simile a twitte o facebook, forse è meglio utilizzare un altra palette di colori*/
-    background-color: rgb(191, 179, 224);
+    background-color: rgb(178, 168, 236);
     border-radius: 3rem;
     margin: 1rem;
     border-style: solid;
@@ -355,11 +369,15 @@ potrebbe modificare in maniera non voluta la grafica.*/
     font-weight: bold;
     color:#122644;
 }
-#body_scopri{
+/*obbligato ad eliminare l'immagine di sfondo perchè distoglieva l'attenzione, cerco di migliorare la grafica in altri modi*/
+/*
+#body_home{
     background-image: url("../Immagini/immagine_tornado_pattern.jpg");
     background-size: 5rem;
     background-repeat: repeat;
-}
+    opacity:0.6
+}*/
+
 .aggiungi_tweet{
     font-size: 1rem;
     color: #4692df;
@@ -374,4 +392,22 @@ label{
 #form_bacheca{
     width: 50%;
     margin: auto;
+}
+
+.centra_iframe{
+    width: 50%;
+    margin:auto;
+    margin-bottom: 0.5rem;
+}
+
+iframe{
+    border-width: 0.25rem;
+    border-color: #090b53;
+    display: block;
+    margin: 0 auto;
+}
+
+.informazioni{
+    display:block;
+    margin-top: 1rem;
 }

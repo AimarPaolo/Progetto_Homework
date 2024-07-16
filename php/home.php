@@ -18,7 +18,7 @@
         <!--icona presa dalla seguente -> https://icons8.it/icon/set/net/family-ios-->
         <link rel="icon" type="image/png" href="../Immagini/logo.png">
     </head>
-    <body>
+    <body id="body_home">
         <nav>
             <div class="navbar">
                 <a id="attiva" href="home.php">Home</a>
@@ -44,16 +44,35 @@
                     angolo del pianeta, scoprendo così una vasta gamma di pensieri, opinioni ed esperienze.
                 </div>
                 <div class="informazioni">
-
+                    Dopo esserti iscritto al sito è possibile guardare i tweet postati da tutti gli altri utenti e, nel caso in cui tu voglia,
+                    puoi anche vedere i tuoi personali!. Nel caso in cui non volessi effettuare il login, c'è la possibilità di guardare 
+                    i tweet degli altri utenti premendo sul pulsante <a href="scopri.php">Scopri</a> ma non sarà possibile scrivere un nuovo tweet.
                 </div>
                 <div>
-                VortexNet non è solo un social network, è una comunità vibrante e diversificata
-                che valorizza la comunicazione aperta e l'interconnessione globale. Che tu voglia rimanere aggiornato sulle 
-                ultime tendenze, esprimere le tue opinioni o semplicemente scoprire nuovi punti di vista, VortexNet è il posto 
-                giusto per te. Non perdere l'opportunità di essere parte di qualcosa di grande. Iscriviti a VortexNet 
-                oggi stesso e inizia a esplorare un mondo di tweet senza confini!
+                    VortexNet non è solo un social network, è una comunità vibrante e diversificata
+                    che valorizza la comunicazione aperta e l'interconnessione globale. Che tu voglia rimanere aggiornato sulle 
+                    ultime tendenze, esprimere le tue opinioni o semplicemente scoprire nuovi punti di vista, VortexNet è il posto 
+                    giusto per te. Non perdere l'opportunità di essere parte di qualcosa di grande. Iscriviti a VortexNet 
+                    oggi stesso e inizia a esplorare un mondo di tweet senza confini!
                 </div>
-            </div>
+                <h1>Sei stufo delle menzogne presenti sugli altri social?</h1>
+                <!--inserisco un video preso da youtube (presente nell'iframe) prendendo spunto dai valori presenti nelle slide 78/79
+                del pacco 02_html_p2. Ho deciso di inserire un video dove non fosse necessario l'audio, in modo da non distogliere completamente
+                l'attenzione dell'utente dagli altri dettagli presenti nella pagina. Permetto inoltre il fulllscreen per accedere 
+                al video ingrandito. Lascio i controlli settati a 0 per evitare che l'utente riesca a rimettere l'audio o il fullscreen facilemente (può sempre farlo ma solo se
+                è particolarmente interessato al video). Utilizzo rel=0 per evitare che, alla fine del video, ne vengano suggeriti altri.
+                -->
+                <div class="centra_iframe">
+                    <iframe src="https://www.youtube.com/embed/0EFHbruKEmw?autoplay=1&loop=1&controls=0&mute=1&rel=0" allowfullscreen></iframe>
+                </div>  
+                <div>
+                    Noi di VortexNet vogliamo esaltare la spontaneità delle persone. In un mondo dove tutto sembra pianificato e 
+                    curato, VortexNet vuole essere diverso. Il nostro obiettivo è creare uno spazio genuino dove
+                    l'autenticità delle persone possa brillare. Crediamo che i momenti migliori e più memorabili nascano dalla 
+                    spontaneità, e vogliamo che ogni nostro utente si senta libero di esprimersi in modo naturale e senza filtri. Inizia oggi
+                    a scrivere tweet con tutti, iscrivendoti con pochi passaggi.
+                </div>
+            </div> 
         </main>
         <footer>
             <!--inserisco il simbolo di copyright utilizzando la dicitura &copy; oppure &#169 per evitare succeffici errori di 

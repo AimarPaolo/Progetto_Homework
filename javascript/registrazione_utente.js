@@ -89,6 +89,11 @@ function validateForm(formId){
         window.alert("Hai meno di 12 anni, non è possibile iscriversi al sito");
         return false;
     }
+    /*aggiungo anche un controllo che la persona inserisca un età sensata (ad esempio che non sia nata nel 1200)*/
+    if(parseInt(array[0]) <= 1900){
+        window.alert("La data inserita risulta troppo lontana dai giorni nostri.");
+        return false;
+    }
     /*Se tutti i controlli sono soddisfatti, allora posso convalidare il form e mandare i dati del form senza creare problemi
     (il controllo dovrà poi esser eseguito anche lato server con PHP in quando non si sa mai che pagina possa mandarci i dati)*/
     return true;

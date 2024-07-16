@@ -8,6 +8,11 @@
         $appena_entrato = true;
         unset($_SESSION["appena_entrato"]);
     }
+    //in questo caso voglio che i filtri rimangano fino a quando non viene scritto un altro tweet o fino a quando non chiudo il web, quindi me li salvo in variabili di sessione
+    if(isset($_REQUEST["filtro1"]))
+        $_SESSION["filtro1"] = $_REQUEST["filtro1"];
+    if(isset($_REQUEST["filtro2"]))
+    $_SESSION["filtro2"] = $_REQUEST["filtro2"];
     if($entrato == false){
 
         ?>
@@ -93,7 +98,7 @@
                     echo "<p>Errore connessione al DBMS: ".mysqli_connect_error()."</p>\n";
                     //faccio in modo che stampi solo questo e segnali l'errore, non deve essere stampata la parte relativa alla registrazione
                 }else{
-                    if(isset($_REQUEST["filtro1"]) && isset($_REQUEST["filtro2"]) && $_REQUEST["filtro1"]!="" && $_REQUEST["filtro2"]){
+                    if(isset($_SESSION["filtro1"]) && isset($_SESSION["filtro2"]) && $_SESSION["filtro1"]!="" && $_SESSION["filtro2"]){
                         //se entrambi i filtri sono settati controllo che la data sia compresa tra quei due valori
                         $query = "SELECT * FROM tweets WHERE username=? AND data>=? AND data<=? ORDER BY data DESC";
                         $stmt = mysqli_prepare($conn, $query);
@@ -101,20 +106,20 @@
                         $data1 = $_REQUEST["filtro1"];
                         $data2 = $_REQUEST["filtro2"];
                         mysqli_stmt_bind_param($stmt, "sss", $username, $data1, $data2);
-                    }elseif(isset($_REQUEST["filtro1"]) && $_REQUEST["filtro1"] != ""){
+                    }elseif(isset($_SESSION["filtro1"]) && $_SESSION["filtro1"] != ""){
                         //in questo caso ho solo il primo filtro settato, quindi mi prenderò tutti i tweet successivi a quella data
                         $query = "SELECT * FROM tweets WHERE username=? AND data>=? ORDER BY data DESC";
                         $stmt = mysqli_prepare($conn, $query);
                         $username = $_SESSION["nome_utente"];
-                        $data1 = $_REQUEST["filtro1"];
+                        $data1 = $_SESSION["filtro1"];
                         mysqli_stmt_bind_param($stmt, "ss", $username, $data1);
-                    }elseif(isset($_REQUEST["filtro2"]) && $_REQUEST["filtro2"] != ""){
+                    }elseif(isset($_SESSION["filtro2"]) && $_SESSION["filtro2"] != ""){
                         $query = "SELECT * FROM tweets WHERE username=? AND data<=? ORDER BY data DESC";
                         $stmt = mysqli_prepare($conn, $query);
                         $username = $_SESSION["nome_utente"];
-                        $data2 = $_REQUEST["filtro2"];
+                        $data2 = $_SESSION["filtro2"];
                         mysqli_stmt_bind_param($stmt, "ss", $username, $data2);
-                    }elseif((!isset( $_REQUEST["filtro2"]) && !isset($_REQUEST["filtro1"])) || ($_REQUEST["filtro1"] == "" && $_REQUEST["filtro1"]=="")){
+                    }elseif((!isset( $_SESSION["filtro2"]) && !isset($_SESSION["filtro1"])) || ($_SESSION["filtro1"] == "" && $_SESSION["filtro1"]=="")){
                         //se non è settato nessun filtro, la pagina viene visualizzata normalmente senza filtri sulle data
                         $query = "SELECT * FROM tweets WHERE username=? ORDER BY data DESC";
                         $stmt = mysqli_prepare($conn, $query);
@@ -132,7 +137,7 @@
                             /*implemento una struttura simile a quella di scopri per mantenere un format coerente in tutte le pagine*/
                             include("../including/tweetBacheca.php");
                         }
-                        if (!$risultato && (!isset($_REQUEST["filtro1"]) && !isset($_REQUEST["filtro2"]))) {
+                        if (!$risultato && (!isset($_SESSION["filtro1"]) && !isset($_SESSION["filtro2"]))) {
                     ?>
                     <?php
                         /*in questo caso ho controllato se esisteva un risultato. In caso affermativo stampo i tweet che sono 

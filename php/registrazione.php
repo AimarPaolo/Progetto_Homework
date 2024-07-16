@@ -203,14 +203,20 @@
                 la pagina, questo contenuto cambia automaticamente-->
                 <form id="registrazione" action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST" onsubmit="return validateForm('registrazione');">
                     <div class="campo">
-                    <output class="segnalaErrore"><?php
-                    if(isset($_SESSION["messaggio_di_errore"])){
-                        $messaggio = $_SESSION["messaggio_di_errore"];
-                        echo "$messaggio";
-                        /*elimino il messaggio di errore per evitare che, tornando di nuovo sulla pagina, mi mostri l'errore precedente*/
-                        unset($_SESSION["messaggio_di_errore"]);
-                        }          
-                    ?></output>
+                    <?php
+                        if(isset($_SESSION["messaggio_di_errore"])){
+                    ?>
+                            <output class="segnalaErrore">
+                            <?php
+                            $messaggio = $_SESSION["messaggio_di_errore"];
+                            echo "$messaggio";
+                            /*elimino il messaggio di errore per evitare che, tornando di nuovo sulla pagina, mi mostri l'errore precedente*/
+                            unset($_SESSION["messaggio_di_errore"]);
+                            ?>
+                            </output>
+                            <?php
+                            }          
+                    ?>
                         <label for="name">Nome: </label>
                         <!--In questo caso, utilizzando minlength e maxlenght e altri attributi, faccio un primo controllo riguardo ai dati che 
                         vengono inseriti in input, controllo che verrà ripetuto anche dopo aver premuto il tasto registrati attraverso la funzione
@@ -231,10 +237,18 @@
                         <input type="date" id="birthdate" name="birthdate" required>
                         <span class="guida">*Selezionare la propria data di nascita, fare attenziona a non selezionarne una che non è ancora avvenuta</span>
                     </div>
+                    <!--facendo provare la registrazione ai miei genitori ho notato che avevano difficoltà su questo punto, aggiungevano nell'indirizzo anche il nome della città.
+                    Dato che nel database sono presenti solo certi campi, ho deciso di inserire questo form che non salva i dati, lascia solo inserire la città per rendere più
+                    chiara la registrazione-->
+                    <div class="campo">
+                        <label for="adress">Città: </label>
+                        <input type="text" name="city" id="city" placeholder="Inserire la città" required>
+                        <span class="guida">*Inserire la città di residenza dell'utente</span>
+                    </div>
                     <div class="campo">
                         <label for="adress">Indirizzo: </label>
                         <input type="text" name="adress" id="adress" placeholder="inserire l'indirizzo" required>
-                        <span class="guida">*Inserire un indirizzo che sia nel formato "Via/Corso/Largo/Piazza/Vicolo" con l'aggiunta del nome e del numero civico, separati dallo spazio. Fare attenzione ad inserire la prima lettera maiuscola</span>
+                        <span class="guida">*Inserire un indirizzo che sia nel formato "Via/Corso/Largo/Piazza/Vicolo" con l'aggiunta del nome e del numero civico (es. Via Saluzzo 11), separati dallo spazio. Fare attenzione ad inserire la prima lettera maiuscola</span>
                     </div>
                     <div class="campo">
                         <label for="nick">Username: </label>

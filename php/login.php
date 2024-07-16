@@ -75,6 +75,11 @@
                         //una sola riga
                         //echo $password_utente."<p>bravissimo</p>".$fetched_password; --> usato per controllare se erano uguali in quanto non entrava nell'if
                         if($password_utente == $fetched_password){
+                            /*utilizzo le variabili di sessione per salvare i dati nonostante mantengano le informazioni del login fino alla
+                            chiusura del browser perchè risultano più sicure rispetto ai cookies che, salvando i dati lato client, comportano un
+                            grande problema di sicurezza ogni volta che si devono mandare al server i dati. In quanto salvo già i dati 
+                            dell'utente grazie ai cookie (informazione meno privata della tupla (utente, password)) penso che sia meglio dare 
+                            priorità alla privacy che alla comodità dell'utente che deve accedere ogni volta che riapre il sito (non è così oneroso)*/
                             $_SESSION["no_errore"] = true;
                             $_SESSION["entrato"] = true;
                             $_SESSION["appena_entrato"] = true;
@@ -133,31 +138,35 @@
             </div>
         </nav>
         <main>
-            <div class="content">
+            <div class="content_login">
                 <!--anche in questo caso, come con la registrazione, utilizzo il metodo POST in quanto ci possono essere dati sensibili che 
                 non dovrebbero essere visibili nell'URL (sempre precisando che questo non rende automaticamente sicuro il metodo Post, ma riesce
                 a risolvere alcune problematiche del get relative alla privacy)-->
                 <h1>Pagina di accesso al sito</h1>
                 <form id="login" name="login" action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST">
                     <div class="campo">
-                        <!--In questo caso ho scelto di utilizzare una segnalazione di errore inserendo il testo dentro dentro ad un output e colorandolo
-                        di rosso per segnalare all'utente che il login non è andato a buon fine in quanto mi sembra migliore alla segnalazione
-                        tramite alert che andrebbe a scomparire una volta premuto il pulsante. Volendo si può fare sfruttando in CSS lo stile
-                        visibility, andando a cambiare il valore. In alternativa si può lasciare il campo output vuoto, inserendo successivamente
-                        dentro al tag il testo che si vuole far comparire-->
-                        <output class="segnalaErrore"><?php
-                    if(isset($_SESSION["errore"])){
-                        if($_SESSION["errore"] == true){
-                            /*ho decido di non distinguere gli errori nell'inserimento della password con quelli dell'inserimento
-                            del nome utente (username) in quanto mi sembrava sufficiente specificare un possibile errore
-                            (magari l'utente aveva inserito un utente esistente nel database che però non era il suo, sarebbe stato 
-                            sbagliato segnalarli che era sbagliata la password) */
+                    <?php
+                        if(isset($_SESSION["errore"])){
                             ?>
-                            Errore in fase di Login, controllare che utente e password siano stati inseriti correttamente!
+                            <!--In questo caso ho scelto di utilizzare una segnalazione di errore inserendo il testo dentro dentro ad un output e colorandolo
+                            di rosso per segnalare all'utente che il login non è andato a buon fine in quanto mi sembra migliore alla segnalazione
+                            tramite alert che andrebbe a scomparire una volta premuto il pulsante. Volendo si può fare sfruttando in CSS lo stile
+                            visibility, andando a cambiare il valore. In alternativa si può lasciare il campo output vuoto, inserendo successivamente
+                            dentro al tag il testo che si vuole far comparire-->
+                            <output class="segnalaErrore">
                             <?php
+                            if($_SESSION["errore"] == true){
+                                /*ho decido di non distinguere gli errori nell'inserimento della password con quelli dell'inserimento
+                                del nome utente (username) in quanto mi sembrava sufficiente specificare un possibile errore
+                                (magari l'utente aveva inserito un utente esistente nel database che però non era il suo, sarebbe stato 
+                                sbagliato segnalarli che era sbagliata la password) */
+                                ?>
+                                Errore in fase di Login, controllare che utente e password siano stati inseriti correttamente!
+                            </output>
+                            <?php
+                            }
                         }
-                    }
-                ?></output>
+                    ?>
                         <label for="nick">Username: </label>
                         <input type="text" id="nick" name="nick" minlength="4" maxlength="10" placeholder="inserire lo username" value="<?php include("../including/controlloCookies.php");?>" required>
                     </div>

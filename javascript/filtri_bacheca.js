@@ -7,7 +7,7 @@ function validateForm(f1){
     console.log("la data 2 è: "+data2);
     console.log("l'if inserito restituisce: "+(data1 > data2));
     if(data1=="" && data2==""){
-        window.alert("inserire almeno uno dei due filtri per selezionare i tweet");
+        window.alert("inserire almeno uno dei due filtri per selezionare i tweet (nel caso in cui l'errore continui a comparire, controllare che siano inseriti anche le ore e i minuti)");
         return false;
     }
     if(data1 == "" || data2 == ""){
