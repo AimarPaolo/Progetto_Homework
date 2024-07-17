@@ -21,7 +21,7 @@
     </head>
     <body id="body_scopri">
     <nav>
-            <div class="navbar">
+            <div id="navbar_scopri" class="navbar">
                 <a href="home.php">Home</a>
                 <a class="<?php include('../including/nomeClasse.php');?>" href="<?php include('../including/disabilitatoreRegistrazione.php');?>">Registra</a>
                 <a class="<?php include('../including/nomeClasseLogout.php');?>" href="<?php include('../including/disabilitatoreScrivi.php');?>">Scrivi</a>
@@ -73,8 +73,18 @@
                                 echo "<p>La connessione non si riesce a chiudere, errore.</p>";
                             }   
                 ?>
-             
+            <!--aggiungo un collegamento ipertestuale per tornare a inizio pagina-->
+            <!--purtroppo la grafica non è delle migliori, in quando quando si torna verso l'alto (sui dipositivi mobile) il bottone tende
+            a spostarsi leggermente dalla sua dimensione e, inoltre, il bottone rischia di andare a sovrapporsi con il footer-->
+            <!--le dimensioni ridotte del bottone non dovrebbero disturbare troppo la visibilità dei tweet in quanto, a meno che non tengano le dimensioni 
+            massime consentite, non dovrebbero intersecarsi-->
+            <a id="bottone_tornaSu"class="bottoni" href="#navbar_scopri">torna su</a>
             </div>
+            <div class="messaggio_no_stampa">
+            <!--aggiungo un messaggio di mancata stampa + diritti di copyright-->
+            <div>&copy; 2024 Aimar Paolo. Tutti i diritti riservati.</div>
+            <!--inserisco inoltre la url della pagina, in modo che la persona, nel caso in cui volesse, può ritornare a quella pagina seguendo il link-->
+            <div>Pagina Corrente: <?php echo $_SERVER['PHP_SELF'];?></div>
         </main>
         <footer>
             <!--inserisco il simbolo di copyright utilizzando la dicitura &copy; oppure &#169 per evitare succeffici errori di 

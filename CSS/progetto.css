@@ -38,12 +38,8 @@ body{
     /*imposto subito il font come sans-serif per non affaticare la vista all'utente, nel caso di stampa dovrò poi cambiare il 
     font inserendo invece il serif*/
     font-family: "Helvetica Neue", Verdana, sans-serif;
-    /*utilizzo questi comandi per centrare il contenuto del body prima orizzontalmente e poi verticalmente */
-    justify-content: center; 
-    align-items: center;
     /*imposto a zero il margine così che il footer e la navbar rimangano attaccate al bordo.*/ 
     margin: 0;
-    bottom: 0;
     /*aggiungo del padding al fondo per evitare che del contenuto si sovrapponga al footer*/
     padding-bottom: 5rem;
 }
@@ -159,8 +155,8 @@ agli utenti*/
 
 footer {
     /*inserisco un opacity per non trascurare troppo il testo dietro*/
-    opacity: 0.5;
-    background-color:#215488;
+    /*opacity: 0.5;*/
+    background-color:#1b60a5;
     color: white;
     text-align: center;
     padding: 1rem;
@@ -410,4 +406,188 @@ iframe{
 .informazioni{
     display:block;
     margin-top: 1rem;
+}
+
+#body_home{
+    background-color: #e3f6fc
+}
+
+.messaggio_no_stampa{
+    display: none;
+}
+
+#bottone_tornaSu{
+    position: fixed;
+    bottom: 7rem;
+    right: 2rem;
+    background-color: #063d74;
+}
+#bottone_tornaSu:hover{
+    position: fixed;
+    bottom: 7rem;
+    right: 2rem;
+    color:white;
+    background-color: #171830;
+}
+
+/*grandezza per i dispositivi tablet*/
+/*non inserisco anche l'altezza massima perchè i dati si dispongono in maniera ordinata*/
+@media screen and (max-width: 768px) {
+    .navbar a {
+        float: none;
+        display: block;
+        text-align: left;
+    }
+
+    .content, .content_login {
+        padding: 1rem 4rem;
+        width: 80%;
+        min-width: 80%;
+    }
+
+    .new_tweet, .tweet_cornice {
+        width: 90%;
+    }
+
+    #testo {
+        /*in questo caso */
+        width: 80%;
+        height: 10rem;
+    }
+    .messaggio_no_stampa{
+        display: none;
+    }
+}  
+
+/*scrivo una media query per i telefoni, in questo caso posso specificare la grandezza in pixel*/
+/*grandezza per i dispositivi mobile*/
+@media screen and (max-width: 480px) {
+    .navbar a {
+        /*faccio in modo che il navbar si rimpicciolisca e che si adatti alla pagina (una parte del navbar su ogni riga)*/
+        float: none;
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+
+    .content, .content_login {
+        padding: 1rem;
+        width: 100%;
+        min-width: 100%;
+        margin:auto;
+    }
+    /*rimpicciolisco la grandezza dei form in modo che non sforino fuori dalla pagina, ho aggiunto anche un width 100% nel navbar
+    in modo tale che riesca ad occupare tutta la larghezza e non rimangano spazi bianchi*/
+    input[type=password],input[type=date], input[type=text]{
+        width: 10rem;
+        margin-right: 3rem;
+        padding: 0.7rem 1.25rem;
+        /*inserisco poco margine bottom in modo che la linea guida per l'inserimento dell'input non si stacchi di molto*/
+        margin: 1rem 1rem 0rem;
+        /*utilizzo la forma compatta per dichiarare il bordo degli input. [spessore, stile e colore]*/
+        border: 0.0625rem solid #ccc;
+        border-radius: 0.25rem;
+        box-sizing: border-box;
+        display: block;
+        margin:auto;
+    }
+    .new_tweet, .tweet_cornice {
+        width: 100%;
+        margin: auto;
+    }
+    /*il form per inserire il testo da pubblicare risulta anche troppo grande da telefono, rimpicciolisco pure quello*/
+    #testo {
+        width: 50%;
+        height: 10rem;
+        margin: auto;
+    }
+
+    .centra_iframe{
+        margin:auto;
+        /*inserisco un margin left di 0 perchè il video risultava scentrato in maniera grossolana nella versione per telefono.*/
+        margin-left: 0;
+    }
+    /*lo inserisco anche sul telefono in quando non voglio che si veda questo messaggio*/
+    .messaggio_no_stampa{
+        display: none;
+    }
+}
+
+@media print {
+    /*elimino tutti i dati che non sono importanti o che peggiorerebbero le qualità della stampa (ad esempio tutti i dati 
+    che devono avere dei dati in input dall'utente. Non ha senso tenerli per la stampa, risulterebbero inutili).*/
+    /*basandomi sulle slide di di progettazione printer friendly (slide 11-14) elimino il navbar*/
+    .navbar, footer, .content_login, .indicazione, .bottoni_scrivi, .bottoni, .centra_iframe, iframe, .content, .campo, .guida, .segnalaErrore, .captation {
+        display: none;
+    }
+    /*imposto il font serif per migliorare la lettura dei dati su stampa. Mentre prima non era importante e si rischiava 
+    di affaticare la vista dell'utente ora invece migliora la qualità di lettura e di stampa
+    */
+    body {
+        font-family: serif;
+        margin: 0;
+        padding: 1rem;
+        background-color: white;
+    }
+
+    /*elimino i messaggi di errore presenti nelle pagine perchè non sono utili per la stampa*/
+    .successo, .segnalaErrore{
+        display: none;
+    }
+
+    .tweet, .parte_tweet, .parte_tweet_bacheca, .tweet_bacheca{
+        color:#000;
+        border-color: #000;
+    }
+    main {
+        margin: 0;
+    }
+    /*imposto tutti i colori della stampante in bianco e nero per permettere a chiunque di stampare il sito (non tutti hanno la
+    possibilità di stampare a colori).*/
+    h1 {
+        color: black;
+        font-size: 1.5rem;
+        margin: 1rem 0;
+    }
+    /*in questo caso, anche se è possibile utilizzare i px  (circa 12 px) ho deciso di lasciare le misure in rem, per mantenere 
+    il codice uniforme (ho effettuato una conversione del font da 12 px a circa 1 rem)*/
+    p, label {
+        color: black;
+        font-size: 0.75rem;
+        margin: 0.5rem 0;
+    }
+    img{
+        display: none;
+    }
+
+    /*cancello per sicurezza tutti i form (anche se ne ho già eliminati in parte cancellando il .content)*/
+    form{
+        display: none;
+    }
+
+    .titolo_grassetto, .titolo_grassetto_bacheca {
+        color: black;
+        font-weight: bold;
+    }
+
+    .successo {
+        color: black;
+        margin: 1rem 0;
+    }
+
+    .pagina {
+        margin: 1rem 0;
+    }
+
+    #testo {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin: 1rem 0;
+        border: 0.0625rem solid #000;
+    }
+    .messaggio_no_stampa{
+        display: block;
+    }
+    /*la pagina di logout presenta pochi elementi da stampare ma è possibile lasciarla anche così*/
 }

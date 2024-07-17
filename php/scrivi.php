@@ -129,6 +129,12 @@
                     <input class="bottoni_scrivi" type="submit" value="Pubblica">
                 </form>
             </div>
+            <div class="messaggio_no_stampa">
+            <!--aggiungo un messaggio di mancata stampa + diritti di copyright-->
+            <div>&copy; 2024 Aimar Paolo. Tutti i diritti riservati.</div>
+            <!--inserisco inoltre la url della pagina, in modo che la persona, nel caso in cui volesse, può ritornare a quella pagina seguendo il link-->
+            <div>Pagina Corrente: <?php echo $_SERVER['PHP_SELF'];?></div>
+        </div>
         </main>
         <footer>
             <!--inserisco il simbolo di copyright utilizzando la dicitura &copy; oppure &#169 per evitare succeffici errori di 

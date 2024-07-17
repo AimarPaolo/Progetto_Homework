@@ -127,6 +127,16 @@
     </head>
     <body>
         <nav>
+        <div class="messaggio_no_stampa">
+            <div>
+                La pagina che si vuole stampare non presenta sufficienti elementi per essere stampata in modo appropriato;
+                provare con un altra pagina.
+            </div>
+            <!--aggiungo un messaggio di mancata stampa + diritti di copyright-->
+            <div>&copy; 2024 Aimar Paolo. Tutti i diritti riservati.</div>
+            <!--inserisco inoltre la url della pagina, in modo che la persona, nel caso in cui volesse, può ritornare a quella pagina seguendo il link-->
+            <div>Pagina Corrente: <?php echo $_SERVER['PHP_SELF'];?></div>
+        </div>
             <div class="navbar">
                 <a href="home.php">Home</a>
                 <a class="<?php include('../including/nomeClasse.php');?>" href="<?php include('../including/disabilitatoreRegistrazione.php');?>">Registra</a>

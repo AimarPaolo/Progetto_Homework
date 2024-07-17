@@ -5,7 +5,7 @@
     <div class="pattern">
         <div class="tweet">
             <div class="parte_tweet">
-                <span class="titolo_grassetto">Username</span><p><?php
+                <span class="titolo_grassetto">Username</span><p class="username_scopri"><?php
                 echo $fetched_username;
                 ?></p>
             </div>

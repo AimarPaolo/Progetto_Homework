@@ -43,17 +43,17 @@
                     connettiamo e condividiamo idee con il mondo. Su VortexNet, potete creare e leggere tweet di persone da ogni
                     angolo del pianeta, scoprendo così una vasta gamma di pensieri, opinioni ed esperienze.
                 </div>
-                <div class="informazioni">
-                    Dopo esserti iscritto al sito è possibile guardare i tweet postati da tutti gli altri utenti e, nel caso in cui tu voglia,
-                    puoi anche vedere i tuoi personali!. Nel caso in cui non volessi effettuare il login, c'è la possibilità di guardare 
-                    i tweet degli altri utenti premendo sul pulsante <a href="scopri.php">Scopri</a> ma non sarà possibile scrivere un nuovo tweet.
-                </div>
                 <div>
                     VortexNet non è solo un social network, è una comunità vibrante e diversificata
                     che valorizza la comunicazione aperta e l'interconnessione globale. Che tu voglia rimanere aggiornato sulle 
                     ultime tendenze, esprimere le tue opinioni o semplicemente scoprire nuovi punti di vista, VortexNet è il posto 
                     giusto per te. Non perdere l'opportunità di essere parte di qualcosa di grande. Iscriviti a VortexNet 
                     oggi stesso e inizia a esplorare un mondo di tweet senza confini!
+                </div>
+                <div class="informazioni">
+                    Dopo esserti iscritto al sito è possibile guardare i tweet postati da tutti gli altri utenti e, nel caso in cui tu voglia,
+                    puoi anche vedere i tuoi personali!. Se non volessi effettuare il login, c'è la possibilità di guardare 
+                    i tweet degli altri utenti premendo sul pulsante <a id="link_stampa" href="scopri.php">Scopri</a> ma non sarà possibile scrivere un nuovo tweet.
                 </div>
                 <h1>Sei stufo delle menzogne presenti sugli altri social?</h1>
                 <!--inserisco un video preso da youtube (presente nell'iframe) prendendo spunto dai valori presenti nelle slide 78/79
@@ -72,7 +72,26 @@
                     spontaneità, e vogliamo che ogni nostro utente si senta libero di esprimersi in modo naturale e senza filtri. Inizia oggi
                     a scrivere tweet con tutti, iscrivendoti con pochi passaggi.
                 </div>
+                <p>
+                    <h1>Perché unirti a noi?</h1>
+                    <ul>
+                        <li>Connessioni Autentiche: Stringi legami sinceri con persone che condividono i tuoi interessi e le tue esperienze di vita.</li>
+                        <li>Esplora e Ispira: Scopri contenuti unici e stimolanti ogni giorno. Dal lifestyle alla tecnologia, dalla cucina alla fotografia, troverai sempre qualcosa che ti affascina.</li>
+                        <li>Condividi il Tuo Mondo: Mostra al mondo chi sei veramente. Pubblica foto, video e pensieri, e ricevi feedback immediati dalla nostra comunità positiva e coinvolgente.</li>
+                        <li>Privacy e Sicurezza: La tua sicurezza è la nostra priorità. Le tue informazioni personali sono protette e il nostro team lavora costantemente per mantenere un ambiente sicuro e rispettoso.</li>
+                    </ul>
+                </p>
+        <p>
+            <span class="highlight">Non aspettare oltre!</span> Unisciti a noi oggi stesso e inizia a vivere un'esperienza di social networking come mai prima d'ora. Registrarsi è facile e veloce, e ti aprirà le porte a un mondo di possibilità senza limiti.
+        </p>
             </div> 
+        <div class="messaggio_no_stampa">
+            <br>
+            <!--aggiungo un messaggio di mancata stampa + diritti di copyright-->
+            <div>&copy; 2024 Aimar Paolo. Tutti i diritti riservati.</div>
+            <!--inserisco inoltre la url della pagina, in modo che la persona, nel caso in cui volesse, può ritornare a quella pagina seguendo il link-->
+            <div>Pagina Corrente: <?php echo $_SERVER['PHP_SELF'];?></div>
+        </div>
         </main>
         <footer>
             <!--inserisco il simbolo di copyright utilizzando la dicitura &copy; oppure &#169 per evitare succeffici errori di 
