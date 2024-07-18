@@ -211,7 +211,7 @@
                 si tratta di password o dati sensibili). utilizzo la variabile globale $_SERVER per prendere il valore del nome della pagina in cui sto scrivendo in questo 
                 momento, è molto meglio utilizzare questo metodo piuttosto che scrivere il nome perchè, nel caso in cui venisse rinominata
                 la pagina, questo contenuto cambia automaticamente-->
-                <form id="registrazione" action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST" onsubmit="return validateForm('registrazione');">
+                <form id="registrazione" name="registrazione" action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST" onsubmit="return validateForm('registrazione');">
                     <div class="campo">
                     <?php
                         if(isset($_SESSION["messaggio_di_errore"])){

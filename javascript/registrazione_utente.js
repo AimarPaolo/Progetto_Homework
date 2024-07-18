@@ -38,6 +38,13 @@ function validateForm(formId){
     let indirizzo_regexp = /^(Via|Corso|Largo|Piazza|Vicolo) [a-zA-Zàèéìòù\s]+ \d{1,4}$/;
     let username_regexp = /^[a-zA-Z][a-zA-Z0-9_-]{3,9}$/;
     let password_regexp = /^(?=(.*[\d]){2})(?=.*[A-Z])(?=.*[a-z])(?=(.*[!?#@%^&*+=]){2})[A-Za-z\d!?#@%^&*+=]{8,16}$/;
+    /*in questo sito utilizzo solo query che fanno riferimento alla tabella users per accedere alla parte privata, quindi per 
+    evitare che un utente acceda o utilizzi l'account login posso aggiungere il controllo che non si registri con quel nome 
+    (non essendo poi registrato non potrà di conseguenza accedere). */ 
+    if(username == "admin"){
+        window.alert("Non puoi utilizzare lo username admin per registrarti, selezionane un altro");
+        return false;
+    }
     /*in questo caso divido le condizioni perchè così si può segnalare in modo preciso l'errore commesso dall'utente
     e questo riesce a risolverlo più velocemente, senza dover provare a capire che cosa ha sbagliato facendo tentativi*/
     if(password != password_check){

@@ -126,7 +126,7 @@
                     <span class="guida_scrivi">*Inserire un tweet lungo al massimo 140 caratteri!</span>
                     <!--in questo caso utilizzo una nuova classe, in quanto i bottoni del login stanno bene in posizioni diverse
                     rispetto a questo-->
-                    <input class="bottoni_scrivi" type="submit" value="Pubblica">
+                    <input id="pubblica" name="pubblica" class="bottoni_scrivi" type="submit" value="Pubblica">
                 </form>
             </div>
             <div class="messaggio_no_stampa">

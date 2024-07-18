@@ -1,0 +1,37 @@
+bacheca.php, form:form_bacheca, datetime-local:filtro1, datetime-local:filtro2, button:filtra, button:salta_filtri
+
+home.php
+
+login.php, form:login, text:nick, password:password, submit:accedi, button:cancella
+
+registrazione.php, form:registrazione, text:name, text:surname, date: birthdate, text:city, text:adress, text:nick, password: password, password: password_check, submit: registrati
+
+scopri.php
+
+scrivi.php, form:formScrivi, textarea:testo, submit:pubblica
+
+aperturaSessioni.php
+
+controlloCookies.php
+
+disabilitaLogout.php
+
+disabilitatore.php
+
+disabilitatoreBacheca.php
+
+disabilitatoreScrivi.php
+
+indicazione.php
+
+logout.php, form:form, submit:si, submit:no
+
+logoutDefinitivo.php
+
+nomeClasse.php
+
+nomeClasseLogout.php
+
+tweetBacheca.php
+
+tweetScopri.php

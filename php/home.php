@@ -72,15 +72,13 @@
                     spontaneità, e vogliamo che ogni nostro utente si senta libero di esprimersi in modo naturale e senza filtri. Inizia oggi
                     a scrivere tweet con tutti, iscrivendoti con pochi passaggi.
                 </div>
-                <p>
-                    <h1>Perché unirti a noi?</h1>
-                    <ul>
-                        <li>Connessioni Autentiche: Stringi legami sinceri con persone che condividono i tuoi interessi e le tue esperienze di vita.</li>
-                        <li>Esplora e Ispira: Scopri contenuti unici e stimolanti ogni giorno. Dal lifestyle alla tecnologia, dalla cucina alla fotografia, troverai sempre qualcosa che ti affascina.</li>
-                        <li>Condividi il Tuo Mondo: Mostra al mondo chi sei veramente. Pubblica foto, video e pensieri, e ricevi feedback immediati dalla nostra comunità positiva e coinvolgente.</li>
-                        <li>Privacy e Sicurezza: La tua sicurezza è la nostra priorità. Le tue informazioni personali sono protette e il nostro team lavora costantemente per mantenere un ambiente sicuro e rispettoso.</li>
-                    </ul>
-                </p>
+                <h1>Perché unirti a noi?</h1>
+                <ul>
+                    <li>Connessioni Autentiche: Stringi legami sinceri con persone che condividono i tuoi interessi e le tue esperienze di vita.</li>
+                    <li>Esplora e Ispira: Scopri contenuti unici e stimolanti ogni giorno. Dal lifestyle alla tecnologia, dalla cucina alla fotografia, troverai sempre qualcosa che ti affascina.</li>
+                    <li>Condividi il Tuo Mondo: Mostra al mondo chi sei veramente. Pubblica foto, video e pensieri, e ricevi feedback immediati dalla nostra comunità positiva e coinvolgente.</li>
+                    <li>Privacy e Sicurezza: La tua sicurezza è la nostra priorità. Le tue informazioni personali sono protette e il nostro team lavora costantemente per mantenere un ambiente sicuro e rispettoso.</li>
+                </ul>
         <p>
             <span class="highlight">Non aspettare oltre!</span> Unisciti a noi oggi stesso e inizia a vivere un'esperienza di social networking come mai prima d'ora. Registrarsi è facile e veloce, e ti aprirà le porte a un mondo di possibilità senza limiti.
         </p>

@@ -11,5 +11,4 @@
         header("Location: ../php/bacheca.php");
         exit();
     }
-    
 ?>
