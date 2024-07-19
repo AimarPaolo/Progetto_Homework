@@ -14,8 +14,7 @@
     if(isset($_REQUEST["filtro2"]))
     $_SESSION["filtro2"] = $_REQUEST["filtro2"];
     if($entrato == false){
-
-        ?>
+?>
 <!DOCTYPE html>
 <html lang="it">
     <head>
@@ -84,9 +83,9 @@
                 if($entrato == true){
                     include("../including/indicazione.php");
                 }
-                ?>
-                <h1>Divertiti a guardare i tweet scritti da te</h1>
-                <?php
+                /*ho decido di utilizzare gli echo piuttosto che chiuedere e riaprire il codice PHP in quanto, per pezzi di codice
+                molto piccoli, potrebbe risultare confusionario chiudere e riaprire (codice molto più pulito)*/
+                echo "<h1>Divertiti a guardare i tweet scritti da te!!</h1>";
                 $nome_server = $_SERVER["SERVER_ADDR"];
                 $nome_utente = "normale";
                 $password = "posso_leggere?";
@@ -141,16 +140,15 @@
                     ?>
                     <?php
                         /*in questo caso ho controllato se esisteva un risultato. In caso affermativo stampo i tweet che sono 
-                        stati scritto dall'utente, in caso negativo si stampa il messaggio per invogliare l'utente a scrivere un messaggio*/
-                        ?>
-                        <p class="aggiungi_tweet">Non hai ancora scritto nessun tweet... Aggiungine uno per condividere subito quello che pensi con tutti!</p>
-                        <p class="aggiungi_tweet">Per aggiungere un tweet passa alla pagina <a href="scrivi.php">SCRIVI</a></p>
-                        <?php
+                        stati scritto dall'utente, in caso negativo si stampa il messaggio per invogliare l'utente a scrivere un messaggio
+                        */
+                        echo " 
+                        <p class=\"aggiungi_tweet\">Non hai ancora scritto nessun tweet... Aggiungine uno per condividere subito quello che pensi con tutti!</p>
+                        <p class=\"aggiungi_tweet\">Per aggiungere un tweet passa alla pagina <a href=\"scrivi.php\">SCRIVI</a></p>
+                        ";
                     }elseif(!$risultato){
-                        ?>
-                        <p class="aggiungi_tweet">Non sono presenti tweet nel periodo che hai selezionato. Prova a selezionarne un altro oppure scrivine uno ora!</p>
-                        <p class="aggiungi_tweet">Per aggiungere un tweet passa alla pagina <a href="scrivi.php">SCRIVI</a></p>
-                        <?php
+                        echo"<p class=\"aggiungi_tweet\">Non sono presenti tweet nel periodo che hai selezionato. Prova a selezionarne un altro oppure scrivine uno ora!</p>
+                        <p class=\"aggiungi_tweet\">Per aggiungere un tweet passa alla pagina <a href=\"scrivi.php\">SCRIVI</a></p>";
                     }
                 }
             ?>
@@ -158,6 +156,8 @@
             corretti in quanto utilizzo un input date). Cercherò solo di escludere attraverso PHP -->
             <!--metto inoltre un metodo get per il form, in quanto non sto inviando dati sensibili o file per i quali è strettamente
             richiesto e consigliato il metodo POST-->
+            <!--non utilizzo in questo caso echo o printf perchè il codice HTML risultante è parecchio lungo (non c'è il rischio di 
+            di rendere difficoltosa la lettura del codice) inoltre, è possibile visualizzare meglio i commenti inseriti all'interno del codice-->
             <form id="form_bacheca" name="form_bacheca" action="bacheca.php" method="GET">
                 <output id="segnalaErrore" name="segnalaErrore">
                     <?php

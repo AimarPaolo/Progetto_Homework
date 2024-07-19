@@ -215,16 +215,13 @@
                     <div class="campo">
                     <?php
                         if(isset($_SESSION["messaggio_di_errore"])){
-                    ?>
-                            <output class="segnalaErrore">
-                            <?php
+                            //in questo caso utilizzo il comando echo perchè non avrebbe senso aprire e chiudere il codice PHP (creerebbe un codice più difficile da leggere)
+                            echo "<output class=\"segnalaErrore\">";
                             $messaggio = $_SESSION["messaggio_di_errore"];
                             echo "$messaggio";
                             /*elimino il messaggio di errore per evitare che, tornando di nuovo sulla pagina, mi mostri l'errore precedente*/
                             unset($_SESSION["messaggio_di_errore"]);
-                            ?>
-                            </output>
-                            <?php
+                            echo "</output>";
                             }          
                     ?>
                         <label for="name">Nome: </label>

@@ -38,10 +38,10 @@
                 if($entrato == true){
                     include("../including/indicazione.php");
                 }
-            ?>
-            <div class="tweet_cornice">
-                <h1>Scopri i tweets di tutti gli utenti</h1>
-                <?php
+            echo "
+            <div class=\"tweet_cornice\">
+                <h1>Scopri i tweets di tutti gli utenti</h1>";
+                
                     $nome_server = $_SERVER["SERVER_ADDR"];
                     $nome_utente = "normale";
                     $password = "posso_leggere?";

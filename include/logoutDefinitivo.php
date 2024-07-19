@@ -10,5 +10,5 @@
     }elseif(isset($_REQUEST["no"])){
         header("Location: ../php/bacheca.php");
         exit();
-    }
+    }  
 ?>
